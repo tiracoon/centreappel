@@ -1,0 +1,97 @@
+.popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1050;
+}
+
+.popup-saisie-action {
+    background: white;
+    border-radius: 8px;
+    width: min(900px, 92vw);
+    max-height: 88vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.popup-entete {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.popup-titre {
+    margin: 0 0 0.5rem;
+    font-size: 1.15rem;
+}
+
+.popup-entete-detail {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.popup-corps {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+    padding: 1.25rem;
+}
+
+.popup-saisie {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    align-content: start;
+}
+
+.champ-pleine-largeur {
+    grid-column: 1 / -1;
+}
+
+.popup-saisie .form-select:disabled,
+.popup-saisie .form-control:disabled {
+    background-color: #f0f0f0;
+    color: #adb5bd;
+    cursor: not-allowed;
+}
+
+.popup-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.popup-historique {
+    border-left: 1px solid #e5e5e5;
+    padding-left: 1.25rem;
+}
+
+.historique-item {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 0.9rem;
+}
+
+.historique-date {
+    color: #6c757d;
+    font-size: 0.8rem;
+}
+
+@media (max-width: 640.98px) {
+    .popup-corps {
+        grid-template-columns: 1fr;
+    }
+
+    .popup-historique {
+        border-left: none;
+        border-top: 1px solid #e5e5e5;
+        padding-left: 0;
+        padding-top: 1rem;
+    }
+}

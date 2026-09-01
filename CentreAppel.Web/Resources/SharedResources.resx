@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Microsoft ResX Schema
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <data name="App_Nom" xml:space="preserve">
+    <value>Centre d'appels</value>
+  </data>
+
+  <data name="Connexion_PageTitle" xml:space="preserve">
+    <value>Connexion</value>
+  </data>
+  <data name="Connexion_LoginAdLabel" xml:space="preserve">
+    <value>Login AD</value>
+  </data>
+  <data name="Connexion_MotDePasseLabel" xml:space="preserve">
+    <value>Mot de passe</value>
+  </data>
+  <data name="Connexion_SeConnecterBouton" xml:space="preserve">
+    <value>Se connecter</value>
+  </data>
+  <data name="Connexion_LoginRequis" xml:space="preserve">
+    <value>Le login AD est requis.</value>
+  </data>
+  <data name="Connexion_LoginInconnu" xml:space="preserve">
+    <value>Login AD inconnu.</value>
+  </data>
+
+  <data name="SuiviCampagnes_PageTitle" xml:space="preserve">
+    <value>Suivi des campagnes</value>
+  </data>
+  <data name="SuiviCampagnes_SectionCampagnesEnCours" xml:space="preserve">
+    <value>Mes campagnes en cours</value>
+  </data>
+  <data name="SuiviCampagnes_ColonneCampagne" xml:space="preserve">
+    <value>Campagne</value>
+  </data>
+  <data name="SuiviCampagnes_ColonneDate" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="SuiviCampagnes_ColonneLignes" xml:space="preserve">
+    <value>Lignes</value>
+  </data>
+  <data name="SuiviCampagnes_ColonneATraiter" xml:space="preserve">
+    <value>À traiter</value>
+  </data>
+
+  <data name="SuiviCampagnes_ColonneSoc" xml:space="preserve">
+    <value>Soc</value>
+  </data>
+  <data name="SuiviCampagnes_ColonneNumcli" xml:space="preserve">
+    <value>Numcli</value>
+  </data>
+  <data name="SuiviCampagnes_ColonneRfm" xml:space="preserve">
+    <value>RFM</value>
+  </data>
+  <data name="SuiviCampagnes_ColonneRaisonSociale" xml:space="preserve">
+    <value>Raison sociale</value>
+  </data>
+  <data name="SuiviCampagnes_ColonneSousActivite" xml:space="preserve">
+    <value>Sous-activité</value>
+  </data>
+  <data name="SuiviCampagnes_ColonneCaHt" xml:space="preserve">
+    <value>CA HT</value>
+  </data>
+  <data name="SuiviCampagnes_ColonneDateDernierAchat" xml:space="preserve">
+    <value>Date dernier achat</value>
+  </data>
+  <data name="SuiviCampagnes_ColonneCorrespondant" xml:space="preserve">
+    <value>Correspondant</value>
+  </data>
+  <data name="SuiviCampagnes_ColonneTelephone" xml:space="preserve">
+    <value>Téléphone</value>
+  </data>
+  <data name="SuiviCampagnes_ColonneEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="SuiviCampagnes_ColonneMagasinAffilie" xml:space="preserve">
+    <value>Magasin de rattachement</value>
+  </data>
+  <data name="SuiviCampagnes_ColonneDateHeureContact" xml:space="preserve">
+    <value>Date/heure de contact</value>
+  </data>
+  <data name="SuiviCampagnes_ColonneTypeContact" xml:space="preserve">
+    <value>Type de contact</value>
+  </data>
+  <data name="SuiviCampagnes_ColonneDeroulement" xml:space="preserve">
+    <value>Déroulement</value>
+  </data>
+  <data name="SuiviCampagnes_ColonneDateRelance" xml:space="preserve">
+    <value>Date de relance</value>
+  </data>
+  <data name="SuiviCampagnes_ColonneInteretClient" xml:space="preserve">
+    <value>Intérêt du client</value>
+  </data>
+  <data name="SuiviCampagnes_ColonneCanalAchat" xml:space="preserve">
+    <value>Canal d'achat</value>
+  </data>
+  <data name="SuiviCampagnes_ColonneCommentaire" xml:space="preserve">
+    <value>Commentaire</value>
+  </data>
+  <data name="SuiviCampagnes_ColonneOperateurEnCours" xml:space="preserve">
+    <value>Opérateur en cours</value>
+  </data>
+  <data name="SuiviCampagnes_AucuneCampagne" xml:space="preserve">
+    <value>Aucune campagne active.</value>
+  </data>
+  <data name="SuiviCampagnes_ProchainContact" xml:space="preserve">
+    <value>Prochain contact</value>
+  </data>
+  <data name="SuiviCampagnes_Relance" xml:space="preserve">
+    <value>Relance</value>
+  </data>
+  <data name="SuiviCampagnes_Historique" xml:space="preserve">
+    <value>Historique</value>
+  </data>
+  <data name="SuiviCampagnes_ActionIndisponible" xml:space="preserve">
+    <value>Nécessite la popup de saisie d'action (à venir).</value>
+  </data>
+  <data name="RappelsDuJour_PageTitle" xml:space="preserve">
+    <value>Rappels du jour</value>
+  </data>
+  <data name="RappelsDuJour_Compteur" xml:space="preserve">
+    <value>{0} rappel(s) à traiter</value>
+  </data>
+  <data name="RappelsDuJour_Portee" xml:space="preserve">
+    <value>Toutes campagnes visibles confondues, quel que soit le conseiller ayant planifié le rappel.</value>
+  </data>
+  <data name="RappelsDuJour_ColonneCampagne" xml:space="preserve">
+    <value>Nom de la campagne</value>
+  </data>
+  <data name="RappelsDuJour_ColonneRaisonSociale" xml:space="preserve">
+    <value>Raison sociale</value>
+  </data>
+  <data name="RappelsDuJour_ColonneTelephone" xml:space="preserve">
+    <value>Téléphone</value>
+  </data>
+  <data name="RappelsDuJour_ColonneDateRelance" xml:space="preserve">
+    <value>Date/heure de relance</value>
+  </data>
+  <data name="RappelsDuJour_ColonneDerniereAction" xml:space="preserve">
+    <value>Dernière action</value>
+  </data>
+  <data name="RappelsDuJour_Traiter" xml:space="preserve">
+    <value>Traiter</value>
+  </data>
+  <data name="RappelsDuJour_Aucun" xml:space="preserve">
+    <value>Aucun rappel à traiter.</value>
+  </data>
+
+  <data name="SuiviCampagnes_BoutonProchainContact" xml:space="preserve">
+    <value>→ Prochain contact</value>
+  </data>
+  <data name="SuiviCampagnes_BoutonRelance" xml:space="preserve">
+    <value>↻ Relance</value>
+  </data>
+  <data name="SuiviCampagnes_BoutonHistorique" xml:space="preserve">
+    <value>🕓 Historique</value>
+  </data>
+  <data name="SuiviCampagnes_ProchainContactAucun" xml:space="preserve">
+    <value>Aucun client disponible pour le moment.</value>
+  </data>
+  <data name="SuiviCampagnes_LigneVerrouillee" xml:space="preserve">
+    <value>en cours — {0}</value>
+  </data>
+  <data name="SuiviCampagnes_VerrouEchec" xml:space="preserve">
+    <value>Cette ligne est en cours de traitement par {0}.</value>
+  </data>
+  <data name="SuiviCampagnes_BoutonRafraichir" xml:space="preserve">
+    <value>Rafraîchir</value>
+  </data>
+
+  <data name="PopupAction_Titre" xml:space="preserve">
+    <value>Saisie d'action</value>
+  </data>
+
+  <data name="Role_CONSEILLER" xml:space="preserve">
+    <value>Conseiller</value>
+  </data>
+  <data name="Role_ADMINISTRATEUR" xml:space="preserve">
+    <value>Administrateur</value>
+  </data>
+
+  <data name="Deroulement_NUMERO_NON_ATTRIBUE" xml:space="preserve">
+    <value>Numéro non attribué</value>
+  </data>
+  <data name="Deroulement_FAUX_NUMERO" xml:space="preserve">
+    <value>Faux numéro</value>
+  </data>
+  <data name="Deroulement_ENTREPRISE_FERMEE" xml:space="preserve">
+    <value>Entreprise fermée</value>
+  </data>
+  <data name="Deroulement_MAUVAIS_INTERLOCUTEUR" xml:space="preserve">
+    <value>Mauvais interlocuteur</value>
+  </data>
+  <data name="Deroulement_DOUBLON" xml:space="preserve">
+    <value>Doublon</value>
+  </data>
+  <data name="Deroulement_REPONDEUR" xml:space="preserve">
+    <value>Répondeur</value>
+  </data>
+  <data name="Deroulement_A_RAPPELER" xml:space="preserve">
+    <value>À rappeler</value>
+  </data>
+  <data name="Deroulement_CONTACT_ARGUMENTE" xml:space="preserve">
+    <value>Contact argumenté</value>
+  </data>
+  <data name="Deroulement_NE_PLUS_CONTACTER" xml:space="preserve">
+    <value>Ne plus contacter</value>
+  </data>
+
+  <data name="Interet_REFRACTAIRE" xml:space="preserve">
+    <value>Réfractaire</value>
+  </data>
+  <data name="Interet_INTERESSE_WEB" xml:space="preserve">
+    <value>Intéressé via Web</value>
+  </data>
+  <data name="Interet_INTERESSE_MAG" xml:space="preserve">
+    <value>Intéressé via Mag</value>
+  </data>
+  <data name="Interet_VENTE_VALIDEE" xml:space="preserve">
+    <value>Vente validée</value>
+  </data>
+
+  <data name="TypeContact_APPEL" xml:space="preserve">
+    <value>Appel</value>
+  </data>
+  <data name="TypeContact_EMAIL" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="TypeContact_SMS" xml:space="preserve">
+    <value>SMS</value>
+  </data>
+  <data name="TypeContact_COURRIER" xml:space="preserve">
+    <value>Courrier</value>
+  </data>
+
+  <data name="CanalAchat_WEB" xml:space="preserve">
+    <value>Web</value>
+  </data>
+  <data name="CanalAchat_MAGASIN" xml:space="preserve">
+    <value>Magasin</value>
+  </data>
+  <data name="PopupAction_TypeContact" xml:space="preserve">
+    <value>Type de contact</value>
+  </data>
+  <data name="PopupAction_Deroulement" xml:space="preserve">
+    <value>Déroulement</value>
+  </data>
+  <data name="PopupAction_Interet" xml:space="preserve">
+    <value>Intérêt du client</value>
+  </data>
+  <data name="PopupAction_DateRelance" xml:space="preserve">
+    <value>Date de relance</value>
+  </data>
+  <data name="PopupAction_DateAchat" xml:space="preserve">
+    <value>Date d'achat</value>
+  </data>
+  <data name="PopupAction_Canal" xml:space="preserve">
+    <value>Canal d'achat</value>
+  </data>
+  <data name="PopupAction_Commentaire" xml:space="preserve">
+    <value>Commentaire</value>
+  </data>
+  <data name="PopupAction_CommentaireLibre" xml:space="preserve">
+    <value>Commentaire libre</value>
+  </data>
+  <data name="PopupAction_Historique" xml:space="preserve">
+    <value>Historique</value>
+  </data>
+  <data name="PopupAction_AucuneAction" xml:space="preserve">
+    <value>Aucune action précédente.</value>
+  </data>
+  <data name="PopupAction_Annuler" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="PopupAction_Enregistrer" xml:space="preserve">
+    <value>Enregistrer</value>
+  </data>
+  <data name="PopupAction_ConfirmationNePlusContacter" xml:space="preserve">
+    <value>Ce client sera exclu de toutes les campagnes futures. Confirmer ?</value>
+  </data>
+  <data name="PopupAction_Confirmer" xml:space="preserve">
+    <value>Confirmer</value>
+  </data>
+  <data name="PopupAction_ChoixVide" xml:space="preserve">
+    <value>—</value>
+  </data>
+
+  <data name="RechercheClient_PageTitle" xml:space="preserve">
+    <value>Recherche client</value>
+  </data>
+  <data name="TableauDeBord_PageTitle" xml:space="preserve">
+    <value>Tableau de bord</value>
+  </data>
+  <data name="Administration_PageTitle" xml:space="preserve">
+    <value>Administration</value>
+  </data>
+
+  <data name="AccesRefuse_PageTitle" xml:space="preserve">
+    <value>Accès refusé</value>
+  </data>
+  <data name="AccesRefuse_Message" xml:space="preserve">
+    <value>Vous n'avez pas les droits nécessaires pour accéder à cette page.</value>
+  </data>
+
+  <data name="MainLayout_Aide" xml:space="preserve">
+    <value>Aide</value>
+  </data>
+  <data name="MainLayout_Deconnexion" xml:space="preserve">
+    <value>Déconnexion</value>
+  </data>
+  <data name="MainLayout_ErreurNonGeree" xml:space="preserve">
+    <value>Une erreur inattendue est survenue.</value>
+  </data>
+  <data name="MainLayout_Recharger" xml:space="preserve">
+    <value>Recharger</value>
+  </data>
+
+  <data name="Error_PageTitle" xml:space="preserve">
+    <value>Erreur</value>
+  </data>
+  <data name="Error_Titre" xml:space="preserve">
+    <value>Erreur.</value>
+  </data>
+  <data name="Error_Message" xml:space="preserve">
+    <value>Une erreur est survenue lors du traitement de votre demande.</value>
+  </data>
+  <data name="Error_RequestIdLabel" xml:space="preserve">
+    <value>Identifiant de la requête :</value>
+  </data>
+  <data name="Error_ModeDeveloppementTitre" xml:space="preserve">
+    <value>Mode développement</value>
+  </data>
+  <data name="Error_ModeDeveloppementTexte1" xml:space="preserve">
+    <value>Passer à l'environnement Development affichera des informations plus détaillées sur l'erreur survenue.</value>
+  </data>
+  <data name="Error_ModeDeveloppementAvertissement" xml:space="preserve">
+    <value>L'environnement Development ne doit pas être activé pour les applications déployées.</value>
+  </data>
+  <data name="Error_ModeDeveloppementTexte2" xml:space="preserve">
+    <value>Cela peut entraîner l'affichage d'informations sensibles issues des exceptions aux utilisateurs finaux. Pour un débogage local, activez l'environnement Development en définissant la variable d'environnement ASPNETCORE_ENVIRONMENT sur Development, puis redémarrez l'application.</value>
+  </data>
+
+  <data name="NotFound_Titre" xml:space="preserve">
+    <value>Page introuvable</value>
+  </data>
+  <data name="NotFound_Message" xml:space="preserve">
+    <value>Désolé, le contenu que vous recherchez n'existe pas.</value>
+  </data>
+
+  <data name="Reconnexion_TentativeInitiale" xml:space="preserve">
+    <value>Reconnexion au serveur...</value>
+  </data>
+  <data name="Reconnexion_EchecTentativePrefixe" xml:space="preserve">
+    <value>Échec de la reconnexion... nouvelle tentative dans</value>
+  </data>
+  <data name="Reconnexion_EchecTentativeSuffixe" xml:space="preserve">
+    <value>secondes.</value>
+  </data>
+  <data name="Reconnexion_EchecDefinitif" xml:space="preserve">
+    <value>Impossible de rejoindre le serveur.</value>
+  </data>
+  <data name="Reconnexion_ReessayerTexte" xml:space="preserve">
+    <value>Veuillez réessayer ou recharger la page.</value>
+  </data>
+  <data name="Reconnexion_BoutonReessayer" xml:space="preserve">
+    <value>Réessayer</value>
+  </data>
+  <data name="Reconnexion_SessionPausee" xml:space="preserve">
+    <value>La session a été mise en pause par le serveur.</value>
+  </data>
+  <data name="Reconnexion_EchecReprise" xml:space="preserve">
+    <value>Échec de la reprise de la session.</value>
+  </data>
+  <data name="Reconnexion_BoutonReprendre" xml:space="preserve">
+    <value>Reprendre</value>
+  </data>
+</root>

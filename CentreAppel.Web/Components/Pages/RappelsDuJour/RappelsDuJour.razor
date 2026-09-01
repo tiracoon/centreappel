@@ -1,0 +1,54 @@
+@page "/rappels-du-jour"
+@rendermode InteractiveServer
+@inherits LocalizedPage
+
+<PageTitle>@Localizer["RappelsDuJour_PageTitle"]</PageTitle>
+
+<h1>@Localizer["RappelsDuJour_PageTitle"]</h1>
+@* <p>@string.Format(Localizer["RappelsDuJour_Compteur"], Rappels.Count) · @Localizer["RappelsDuJour_Portee"]</p>
+
+@if (MessageVerrou is not null)
+{
+    <p class="message-erreur">@MessageVerrou</p>
+}
+
+@if (Rappels.Count == 0)
+{
+    <p><em>@Localizer["RappelsDuJour_Aucun"]</em></p>
+}
+else
+{
+    <div class="table-scroll">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>@Localizer["RappelsDuJour_ColonneCampagne"]</th>
+                    <th>@Localizer["RappelsDuJour_ColonneRaisonSociale"]</th>
+                    <th>@Localizer["RappelsDuJour_ColonneTelephone"]</th>
+                    <th>@Localizer["RappelsDuJour_ColonneDateRelance"]</th>
+                    <th>@Localizer["RappelsDuJour_ColonneDerniereAction"]</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var rappel in Rappels)
+                {
+                    <tr>
+                        <td>@rappel.NomCampagne</td>
+                        <td>@rappel.RaisonSociale</td>
+                        <td>@rappel.Telephone</td>
+                        <td>@rappel.DateRelance.ToString("dd/MM/yyyy")</td>
+                        <td>@rappel.DerniereAction</td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-primary" @onclick="() => OnHandleAsync(rappel)">
+                                @Localizer["RappelsDuJour_Traiter"]
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+<PopupSaisieAction IdLCampagne="IdLCampagnePopupOuverte" OnFerme="OnPopupClosedAsync" OnEnregistre="OnPopupSavedAsync" /> *@

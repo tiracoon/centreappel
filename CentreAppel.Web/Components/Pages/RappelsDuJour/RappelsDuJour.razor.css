@@ -1,0 +1,7 @@
+.table-scroll {
+    overflow-x: auto;
+}
+
+.message-erreur {
+    color: #dc3545;
+}

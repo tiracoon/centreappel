@@ -1,0 +1,28 @@
+@page "/connexion"
+@attribute [AllowAnonymous]
+@inherits LocalizedPage
+
+<PageTitle>@Localizer["Connexion_PageTitle"]</PageTitle>
+
+<div class="connexion-container">
+    <h1>@Localizer["App_Nom"]</h1>
+
+    <EditForm Model="Model" FormName="ConnexionForm" OnValidSubmit="OnValidSubmitAsync" method="post">
+        <div class="mb-3">
+            <label for="loginAd" class="form-label">@Localizer["Connexion_LoginAdLabel"]</label>
+            <InputText id="loginAd" class="form-control" @bind-Value="Model.LoginAd" />
+        </div>
+
+        <div class="mb-3">
+            <label for="motDePasse" class="form-label">@Localizer["Connexion_MotDePasseLabel"]</label>
+            <InputText id="motDePasse" type="password" class="form-control" @bind-Value="Model.MotDePasse" />
+        </div>
+
+        @if (ErreurConnexion is not null)
+        {
+            <div class="alert alert-danger">@ErreurConnexion</div>
+        }
+
+        <button type="submit" class="btn btn-primary">@Localizer["Connexion_SeConnecterBouton"]</button>
+    </EditForm>
+</div>

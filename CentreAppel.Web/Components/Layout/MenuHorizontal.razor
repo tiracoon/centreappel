@@ -1,0 +1,21 @@
+<nav class="menu-horizontal">
+    <NavLink class="tab-link" href="" Match="NavLinkMatch.All">@Localizer["SuiviCampagnes_PageTitle"]</NavLink>
+
+    <NavLink class="tab-link" href="rappels-du-jour">
+        @Localizer["RappelsDuJour_PageTitle"]
+        @if (NombreRappelsDuJour > 0)
+        {
+            <span class="badge">@NombreRappelsDuJour</span>
+        }
+    </NavLink>
+
+    <NavLink class="tab-link" href="recherche-client">@Localizer["RechercheClient_PageTitle"]</NavLink>
+
+    <NavLink class="tab-link" href="tableau-de-bord">@Localizer["TableauDeBord_PageTitle"]</NavLink>
+
+    <AuthorizeView Roles="Administrateur">
+        <Authorized>
+            <NavLink class="tab-link" href="administration">@Localizer["Administration_PageTitle"]</NavLink>
+        </Authorized>
+    </AuthorizeView>
+</nav>

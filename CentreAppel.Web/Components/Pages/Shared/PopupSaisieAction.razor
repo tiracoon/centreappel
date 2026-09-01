@@ -1,0 +1,117 @@
+@inherits LocalizedPage
+
+<PageTitle>@Localizer["SuiviCampagnes_PageTitle"]</PageTitle>
+
+@if (IdLCampagne is not null && LigneCampagnePopup is not null && Saisie is not null)
+{
+    <div class="popup-overlay">
+        <div class="popup-saisie-action">
+            <div class="popup-entete">
+                <div>
+                    <h3 class="popup-titre">@Localizer["PopupAction_Titre"]</h3>
+                    <div>
+                        <strong>@LigneCampagnePopup.RaisonSociale</strong>
+                        <span class="popup-entete-detail">@LigneCampagnePopup.CodeSoc / @LigneCampagnePopup.NumCli.ToString("0")</span>
+                    </div>
+                    <div class="popup-entete-detail">
+                        <span>@LigneCampagnePopup.Telephone</span>
+                        <span>RFM @LigneCampagnePopup.Rfm</span>
+                        <span>@LigneCampagnePopup.MagasinAffilie</span>
+                        <span>@LigneCampagnePopup.Correspondant</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="popup-corps">
+                <div class="popup-saisie">
+                    <div class="mb-2">
+                        <label>@Localizer["PopupAction_TypeContact"]</label>
+                        <select class="form-select" @bind="Saisie.IdTypeContact">
+                            @foreach (var type in TypesContact)
+                            {
+                                <option value="@type.IdTypeContact">@LibelleTypeContact(type)</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="mb-2">
+                        <label>@Localizer["PopupAction_Deroulement"]</label>
+                        <select class="form-select" @bind="Saisie.IdDeroulement" @bind:after="OnDeroulementChange">
+                            <option value="">@Localizer["PopupAction_ChoixVide"]</option>
+                            @foreach (var deroulement in Deroulements)
+                            {
+                                <option value="@deroulement.IdDeroulement">@LibelleDeroulement(deroulement)</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="mb-2">
+                        <label>@Localizer["PopupAction_Interet"]</label>
+                        <select class="form-select" @bind="Saisie.IdInteret" @bind:after="OnInteretChange" disabled="@(!InteretSaisissable)">
+                            <option value="">@Localizer["PopupAction_ChoixVide"]</option>
+                            @foreach (var interet in Interets)
+                            {
+                                <option value="@interet.IdInteret">@LibelleInteret(interet)</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="mb-2">
+                        <label>@Localizer["PopupAction_DateRelance"]</label>
+                        <input type="date" class="form-control" @bind="Saisie.DateRelance" disabled="@(!DateRelanceSaisissable)" />
+                    </div>
+
+                    <div class="mb-2">
+                        <label>@Localizer["PopupAction_DateAchat"]</label>
+                        <input type="date" class="form-control" @bind="Saisie.DateAchat" disabled="@(!VenteValidee)" />
+                    </div>
+
+                    <div class="mb-2">
+                        <label>@Localizer["PopupAction_Canal"]</label>
+                        <select class="form-select" @bind="Saisie.IdCanal" disabled="@(!VenteValidee)">
+                            <option value="">@Localizer["PopupAction_ChoixVide"]</option>
+                            @foreach (var canal in Canaux)
+                            {
+                                <option value="@canal.IdCanal">@LibelleCanalAchat(canal)</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="mb-2 champ-pleine-largeur">
+                        <label>@Localizer["PopupAction_Commentaire"]</label>
+                        <select class="form-select" @bind="Saisie.IdCommentaire">
+                            <option value="">@Localizer["PopupAction_ChoixVide"]</option>
+                            @foreach (var commentaire in Commentaires)
+                            {
+                                <option value="@commentaire.IdCommentaire">@commentaire.Libelle</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="popup-actions champ-pleine-largeur">
+                        <button type="button" class="btn btn-secondary" @onclick="() => OnClose.InvokeAsync()">@Localizer["PopupAction_Annuler"]</button>
+                        <button type="button" class="btn btn-primary" @onclick="SaveAsync" disabled="@(Saisie.IdTypeContact is null || Saisie.IdDeroulement is null)">@Localizer["PopupAction_Enregistrer"]</button>
+                    </div>
+                </div>
+
+                <div class="popup-historique">
+                    <h4>@Localizer["PopupAction_Historique"]</h4>
+                    @if (Historique.Count == 0)
+                    {
+                        <p><em>@Localizer["PopupAction_AucuneAction"]</em></p>
+                    }
+                    else
+                    {
+                        @foreach (var action in Historique)
+                        {
+                            <div class="historique-item">
+                                <div class="historique-date">@action.DhAction.ToString("dd/MM HH:mm") · @action.LoginOperateur</div>
+                                <div>@LibelleHistoriqueDeroulement(action)</div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}

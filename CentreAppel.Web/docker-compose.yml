@@ -1,0 +1,25 @@
+services:
+  db:
+    image: postgres:18
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: centreappel
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    # Pas de port exposé à l'extérieur : seule l'appli (sur le même réseau docker-compose) y accède.
+
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      PORT: 8080
+      ConnectionStrings__Default: "Host=db;Port=5432;Database=centreappel;Username=postgres;Password=${DB_PASSWORD}"
+    ports:
+      - "80:8080"
+
+volumes:
+  db-data:
