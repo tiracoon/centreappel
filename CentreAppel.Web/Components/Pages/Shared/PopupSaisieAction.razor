@@ -89,7 +89,7 @@
                     </div>
 
                     <div class="popup-actions champ-pleine-largeur">
-                        <button type="button" class="btn btn-secondary" @onclick="() => OnClose.InvokeAsync()">@Localizer["PopupAction_Annuler"]</button>
+                        <button type="button" class="btn btn-secondary" @onclick="CancelAsync">@Localizer["PopupAction_Annuler"]</button>
                         <button type="button" class="btn btn-primary" @onclick="SaveAsync" disabled="@(Saisie.IdTypeContact is null || Saisie.IdDeroulement is null)">@Localizer["PopupAction_Enregistrer"]</button>
                     </div>
                 </div>

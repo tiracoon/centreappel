@@ -11,6 +11,9 @@ namespace CentreAppel.Web.Components.Pages.SuiviCampagnes
         [Inject]
         private ICampagneService CampagneService { get; set; } = default!;
 
+        [Inject]
+        private ILogger<SuiviCampagnes> Logger { get; set; } = default!;
+
         private List<CampagneEnCours> CampagnesEnCours { get; set; } = [];
         private List<LigneCampagneEnCours> LignesCampagne { get; set; } = [];
 
@@ -77,18 +80,24 @@ namespace CentreAppel.Web.Components.Pages.SuiviCampagnes
         {
             if (campagne == CampagneSelectionnee) return;
 
+            Logger.LogInformation("Opérateur {IdOperateur} sélectionne la campagne {IdCampagne}", await GetIdOperateurConnecteAsync(), campagne.IdCampagne);
+
             CampagneSelectionnee = campagne;
             await LoadLignesCampagneSelectionnee();
         }
 
         private async Task SelectLigne(LigneCampagneEnCours? ligne)
         {
+            Logger.LogInformation("Opérateur {IdOperateur} sélectionne la ligne {IdLCampagne}", await GetIdOperateurConnecteAsync(), ligne?.IdLCampagne);
+
             LigneSelectionnee = ligne;
         }
 
         private async Task OnProchainContactAsync()
         {
             if (CampagneSelectionnee is null) return;
+
+            Logger.LogInformation("Opérateur {IdOperateur} clique sur Prochain contact pour la campagne {IdCampagne}", await GetIdOperateurConnecteAsync(), CampagneSelectionnee.IdCampagne);
 
             var ligne = await CampagneService.AcquireProchainContactAsync(CampagneSelectionnee.IdCampagne, CancellationToken.None);
             if (ligne is null)
@@ -104,9 +113,17 @@ namespace CentreAppel.Web.Components.Pages.SuiviCampagnes
             IdLCampagnePopupOuverte = ligne;
         }
 
-        private async Task OnRelanceAsync() => await OpenPopupLigneSelectionneeAsync();
+        private async Task OnRelanceAsync()
+        {
+            Logger.LogInformation("Opérateur {IdOperateur} clique sur Relance pour la ligne {IdLCampagne}", await GetIdOperateurConnecteAsync(), LigneSelectionnee?.IdLCampagne);
+            await OpenPopupLigneSelectionneeAsync();
+        }
 
-        private async Task OnHistoriqueAsync() => await OpenPopupLigneSelectionneeAsync();
+        private async Task OnHistoriqueAsync()
+        {
+            Logger.LogInformation("Opérateur {IdOperateur} clique sur Historique pour la ligne {IdLCampagne}", await GetIdOperateurConnecteAsync(), LigneSelectionnee?.IdLCampagne);
+            await OpenPopupLigneSelectionneeAsync();
+        }
 
         private async Task OnPopupClosedAsync()
         {

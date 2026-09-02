@@ -21,6 +21,9 @@ namespace CentreAppel.Web.Components.Pages.Shared
         [Inject]
         private DeroulementService DeroulementService { get; set; } = default!;
 
+        [Inject]
+        private ILogger<PopupSaisieAction> Logger { get; set; } = default!;
+
         private LigneCampagnePopup? LigneCampagnePopup;
         private List<HistoriqueAction> Historique = [];
         private List<Deroulement> Deroulements = [];
@@ -138,9 +141,17 @@ namespace CentreAppel.Web.Components.Pages.Shared
 
             Saisie.IdOperateur = idOperateur.Value;
 
+            Logger.LogInformation("Opérateur {IdOperateur} clique sur Enregistrer pour la ligne {IdLCampagne}", idOperateur, Saisie.IdLCampagne);
+
             await CampagneService.SaveActionAsync(Saisie, commentaireLibre: null, CancellationToken.None);
 
             await OnSave.InvokeAsync();
+        }
+
+        private async Task CancelAsync()
+        {
+            Logger.LogInformation("Opérateur {IdOperateur} clique sur Annuler pour la ligne {IdLCampagne}", await GetIdOperateurConnecteAsync(), IdLCampagne);
+            await OnClose.InvokeAsync();
         }
     }
 }

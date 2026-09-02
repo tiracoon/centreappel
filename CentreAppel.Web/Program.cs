@@ -4,6 +4,7 @@ using CentreAppel.Web.Components;
 using CentreAppel.Web.Data.Context;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 
@@ -53,6 +54,19 @@ using (var scope = app.Services.CreateScope())
 }
 
 // Configure the HTTP request pipeline.
+
+// Render (et la plupart des PaaS) terminent le TLS à leur edge et transmettent la requête en HTTP
+// simple au conteneur. Sans ce middleware, l'appli ignore que la requête d'origine était en HTTPS :
+// UseHttpsRedirection redirige alors le trafic (y compris la négociation SignalR du circuit Blazor),
+// ce qui empêche la connexion websocket de s'établir et rend l'interactivité muette en production.
+// KnownNetworks/KnownProxies vidés car l'IP du proxy Render n'est pas fixe/documentée.
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto,
+    KnownIPNetworks = { },
+    KnownProxies = { },
+});
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
