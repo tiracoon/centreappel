@@ -19,4 +19,11 @@ COPY --from=build /app/publish .
 ENV PORT=10000
 EXPOSE 10000
 
+# Désactive le rechargement à chaud d'appsettings.json (FileSystemWatcher/inotify) : inutile en
+# conteneur immuable, et la limite inotify du noyau est partagée par UID entre tous les conteneurs
+# d'un même hôte — sur un hébergeur mutualisé (ex. plan gratuit Render), elle peut être épuisée par
+# d'autres conteneurs et faire planter l'appli au démarrage (System.IO.IOException: "configured
+# user limit (128) on the number of inotify instances").
+ENV DOTNET_HOSTBUILDER__RELOADCONFIGONCHANGE=false
+
 ENTRYPOINT ["/bin/sh", "-c", "ASPNETCORE_URLS=http://+:${PORT} exec dotnet CentreAppel.Web.dll"]
