@@ -49,7 +49,7 @@ public static class DbSeeder
         await SeedCampagneArchiveeAsync(context, spetit, mmartin, typeAppel, dDoublon, dARappeler, cancellationToken);
         await SeedCampagnePreparationSansContactAsync(context, spetit, cancellationToken);
         await SeedCampagnePreparationAvecContactsAsync(context, spetit, cancellationToken);
-        await SeedCampagneActiveVideAsync(context, spetit, mmartin, "26_401 - Active vide A (test)", new DateOnly(2026, 8, 1), cancellationToken);
+        await SeedCampagneActiveSansLigneATraiterAsync(context, spetit, mmartin, typeAppel, dRepondeur, cancellationToken);
         await SeedCampagneActiveVideAsync(context, spetit, mmartin, "26_402 - Active vide B (test)", new DateOnly(2026, 8, 5), cancellationToken);
         await SeedCampagneVolumeEtProchainContactAsync(context, spetit, mmartin, cancellationToken);
         await SeedCampagneTousLesCasAsync(
@@ -246,7 +246,41 @@ public static class DbSeeder
         await context.SaveChangesAsync(cancellationToken);
     }
 
-    // Cas 5/6 : campagne Active sans aucun contact.
+    // Cas 5 : campagne Active avec 5 lignes toutes déjà traitées (aucune ligne "à traiter" -
+    // NbATraiter compte les lignes sans aucune ActionCampagne, cf. CampagneService).
+    private static async Task SeedCampagneActiveSansLigneATraiterAsync(
+        ApplicationDbContext context, OperateurEntity spetit, OperateurEntity mmartin,
+        TypeContactEntity typeAppel, DeroulementEntity dRepondeur,
+        CancellationToken cancellationToken)
+    {
+        const string nom = "26_401 - Active sans ligne à traiter (test)";
+        if (await context.Campagnes.AnyAsync(c => c.Nom == nom, cancellationToken)) return;
+
+        var campagne = new CampagneEntity
+        {
+            Nom = nom,
+            DateCampagne = new DateOnly(2026, 8, 1),
+            Description = "Jeu de test : campagne active, 5 lignes toutes déjà traitées (aucune ligne à traiter).",
+            Statut = StatutCampagne.Active,
+            IdOperateurCm = spetit.IdOperateur,
+        };
+        context.Campagnes.Add(campagne);
+        await context.SaveChangesAsync(cancellationToken);
+
+        for (var n = 1; n <= 5; n++)
+        {
+            var ligne = NouvelleLigne(campagne.IdCampagne, n, 540000 + n, $"TEST Sans à traiter - Contact {n}", spetit.IdOperateur);
+            context.LignesCampagne.Add(ligne);
+            await context.SaveChangesAsync(cancellationToken);
+
+            context.ActionsCampagne.Add(NouvelleAction(ligne.IdLCampagne, 1, new DateTime(2026, 7, 28, 10, 0, 0, DateTimeKind.Utc), spetit.IdOperateur, typeAppel.IdTypeContact, dRepondeur.IdDeroulement, spetit.IdOperateur));
+            await context.SaveChangesAsync(cancellationToken);
+        }
+
+        await AjouterVisibiliteAsync(context, campagne.IdCampagne, spetit, mmartin, cancellationToken);
+    }
+
+    // Cas 6 : campagne Active sans aucun contact.
     private static async Task SeedCampagneActiveVideAsync(ApplicationDbContext context, OperateurEntity spetit, OperateurEntity mmartin, string nom, DateOnly dateCampagne, CancellationToken cancellationToken)
     {
         if (await context.Campagnes.AnyAsync(c => c.Nom == nom, cancellationToken)) return;
