@@ -1,5 +1,9 @@
 # Build (SDK, multi-arch — produit une image arm64 quand construit sur la VM Oracle Ampere).
-FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+# Version figée (pas le tag flottant "10.0") : un bug connu du SDK .NET 10 (corrigé dans les
+# patches récents, cf. dotnet/aspnetcore#66059/#64381/#65353) empêchait blazor.web.js d'être
+# inclus dans le manifeste MapStaticAssets — un build fait avec une couche Docker mise en cache
+# d'un SDK antérieur au correctif reproduit ce 404 indéfiniment tant que le cache n'est pas purgé.
+FROM mcr.microsoft.com/dotnet/sdk:10.0.400 AS build
 WORKDIR /src
 
 COPY CentreAppel.Web.csproj .
