@@ -6,11 +6,14 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0.400 AS build
 WORKDIR /src
 
-COPY CentreAppel.Web.csproj .
-RUN dotnet restore "CentreAppel.Web.csproj"
-
+# Un seul "dotnet publish" (restore + build + publish en une passe), sans étape de restore séparée
+# suivie d'un --no-restore : ce pattern (restore avec seulement le .csproj présent, puis publish
+# --no-restore une fois le reste copié) laissait la détection des static web assets fournis par le
+# framework (blazor.web.js) incomplète en conteneur Linux — le --no-restore empêchait de la
+# recalculer avec le contexte complet au moment du publish, d'où le 404 constaté uniquement sur
+# Render alors que ça fonctionnait en local (dotnet publish local fait tout en une passe aussi).
 COPY . .
-RUN dotnet publish "CentreAppel.Web.csproj" -c Release -o /app/publish --no-restore
+RUN dotnet publish "CentreAppel.Web.csproj" -c Release -o /app/publish
 
 # Runtime (ASP.NET, image plus légère que le SDK).
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime
