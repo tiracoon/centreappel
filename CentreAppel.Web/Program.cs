@@ -97,4 +97,28 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .RequireAuthorization();
 
+// Diagnostic temporaire (à retirer une fois le 404 sur blazor.web.js en production expliqué) :
+// inspecte, depuis l'intérieur du conteneur déployé, si le fichier existe physiquement et s'il
+// est référencé dans le manifeste des static web assets généré à la publication.
+app.MapGet("/diag/static-assets", () =>
+{
+    var frameworkDir = Path.Combine(AppContext.BaseDirectory, "wwwroot", "_framework");
+    var fichiers = Directory.Exists(frameworkDir)
+        ? Directory.GetFiles(frameworkDir).Select(Path.GetFileName).ToArray()
+        : [];
+
+    var manifestPath = Path.Combine(AppContext.BaseDirectory, "CentreAppel.Web.staticwebassets.endpoints.json");
+    var manifestExiste = File.Exists(manifestPath);
+    var manifestContientBlazorWebJs = manifestExiste && File.ReadAllText(manifestPath).Contains("\"_framework/blazor.web.js\"");
+
+    return Results.Json(new
+    {
+        baseDirectory = AppContext.BaseDirectory,
+        frameworkDirExiste = Directory.Exists(frameworkDir),
+        fichiersFramework = fichiers,
+        manifestExiste,
+        manifestContientBlazorWebJs,
+    });
+}).AllowAnonymous();
+
 app.Run();
