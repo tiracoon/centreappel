@@ -59,13 +59,17 @@ using (var scope = app.Services.CreateScope())
 // simple au conteneur. Sans ce middleware, l'appli ignore que la requête d'origine était en HTTPS :
 // UseHttpsRedirection redirige alors le trafic (y compris la négociation SignalR du circuit Blazor),
 // ce qui empêche la connexion websocket de s'établir et rend l'interactivité muette en production.
-// KnownNetworks/KnownProxies vidés car l'IP du proxy Render n'est pas fixe/documentée.
-app.UseForwardedHeaders(new ForwardedHeadersOptions
+// KnownNetworks/KnownProxies par défaut ne font confiance qu'à 127.0.0.1 (loopback) — le proxy
+// Render n'est pas en loopback, donc il faut vider ces listes (via .Clear(), pas via un initialiseur
+// de collection vide "= { }" qui n'ajoute rien et laisse le défaut loopback-only intact) pour que
+// les en-têtes X-Forwarded-* soient réellement pris en compte.
+var forwardedHeadersOptions = new ForwardedHeadersOptions
 {
     ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto,
-    KnownIPNetworks = { },
-    KnownProxies = { },
-});
+};
+forwardedHeadersOptions.KnownIPNetworks.Clear();
+forwardedHeadersOptions.KnownProxies.Clear();
+app.UseForwardedHeaders(forwardedHeadersOptions);
 
 if (!app.Environment.IsDevelopment())
 {
