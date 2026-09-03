@@ -389,6 +389,9 @@
   <data name="PopupAction_Annuler" xml:space="preserve">
     <value>Annuler</value>
   </data>
+  <data name="PopupAction_Fermer" xml:space="preserve">
+    <value>Fermer</value>
+  </data>
   <data name="PopupAction_Enregistrer" xml:space="preserve">
     <value>Enregistrer</value>
   </data>

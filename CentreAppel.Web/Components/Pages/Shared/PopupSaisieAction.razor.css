@@ -67,6 +67,14 @@
     margin-top: 0.5rem;
 }
 
+.popup-actions-fermeture {
+    justify-content: center;
+}
+
+.popup-bouton-fermer {
+    min-width: 12rem;
+}
+
 .popup-historique {
     border-left: 1px solid #e5e5e5;
     padding-left: 1.25rem;
