@@ -11,9 +11,13 @@ public class AuthentificationService(IDbContextFactory<ApplicationDbContext> dbC
         await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 
         // POC : seul le login AD est vérifié, le mot de passe n'est pas encore contrôlé.
+        // Comparaison insensible à la casse : ToLower() des deux côtés se traduit en LOWER(...)
+        // côté SQL, donc reste indépendant de la collation de la colonne (contrairement à ILIKE,
+        // spécifique PostgreSQL).
+        var loginAdMinuscule = loginAd.ToLower();
         return await context.Operateurs
             .Include(o => o.Role)
             .AsNoTracking()
-            .FirstOrDefaultAsync(o => o.LoginAd == loginAd && o.IsActive, cancellationToken);
+            .FirstOrDefaultAsync(o => o.LoginAd.ToLower() == loginAdMinuscule && o.IsActive, cancellationToken);
     }
 }
