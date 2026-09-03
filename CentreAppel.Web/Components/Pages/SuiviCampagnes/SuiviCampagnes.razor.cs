@@ -1,3 +1,4 @@
+using CentreAppel.Web.Application.Extensions;
 using CentreAppel.Web.Application.Models;
 using CentreAppel.Web.Application.Services;
 using CentreAppel.Web.Enum;
@@ -189,7 +190,7 @@ namespace CentreAppel.Web.Components.Pages.SuiviCampagnes
             new(Localizer["SuiviCampagnes_ColonneDateHeureContact"], l => l.DateHeureContact?.ToString("dd/MM/yyyy")),
             new(Localizer["SuiviCampagnes_ColonneTypeContact"], l => l.TypeContactCode is null ? null : Localizer[$"TypeContact_{l.TypeContactCode}"]),
             new(Localizer["SuiviCampagnes_ColonneDeroulement"], l => l.DeroulementCode is null ? null : Localizer[$"Deroulement_{l.DeroulementCode}"]),
-            new(Localizer["SuiviCampagnes_ColonneDateRelance"], l => l.DateRelance?.ToString("dd/MM/yyyy")),
+            new(Localizer["SuiviCampagnes_ColonneDateRelance"], l => l.DateRelance?.UtcVersHeureLocale().ToString("dd/MM/yyyy HH:mm")),
             new(Localizer["SuiviCampagnes_ColonneInteretClient"], l => l.InteretClientCode is null ? null : Localizer[$"Interet_{l.InteretClientCode}"]),
             new(Localizer["SuiviCampagnes_ColonneCanalAchat"], l => l.CanalAchatCode is null ? null : Localizer[$"CanalAchat_{l.CanalAchatCode}"]),
             new(Localizer["SuiviCampagnes_ColonneCommentaire"], l => l.Commentaire),

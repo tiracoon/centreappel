@@ -34,7 +34,7 @@
                         <td>@rappel.RaisonSociale</td>
                         <td>@rappel.Telephone</td>
                         <td class="@(EstEnRetard(rappel) ? "en-retard" : null)">
-                            @rappel.DateRelance.ToString("dd/MM/yyyy")
+                            @DateRelanceAffichee(rappel)
                             @if (EstEnRetard(rappel))
                             {
                                 <text> @Localizer["RappelsDuJour_EnRetard"]</text>

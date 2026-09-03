@@ -24,7 +24,7 @@
         //public int IdDeroulement { get; set; }
         public string? DeroulementCode { get; set; }
 
-        public DateOnly? DateRelance { get; set; }
+        public DateTime? DateRelance { get; set; }
         public string? InteretClientCode { get; set; }
         public string? CanalAchatCode { get; set; }
         public string? Commentaire { get; set; }

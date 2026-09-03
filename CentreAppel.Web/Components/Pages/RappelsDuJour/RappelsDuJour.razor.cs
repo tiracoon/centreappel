@@ -1,3 +1,4 @@
+using CentreAppel.Web.Application.Extensions;
 using CentreAppel.Web.Application.Models;
 using CentreAppel.Web.Application.Services;
 using CentreAppel.Web.Enum;
@@ -48,6 +49,9 @@ namespace CentreAppel.Web.Components.Pages.RappelsDuJour
             await LoadAsync();
         }
 
-        private bool EstEnRetard(RappelDuJour rappel) => rappel.DateRelance < DateOnly.FromDateTime(DateTime.Now);
+        private bool EstEnRetard(RappelDuJour rappel) => rappel.DateRelance < DateTime.UtcNow;
+
+        // DateRelance est stockée en UTC ; conversion à l'affichage uniquement (cf. DateTimeExtensions).
+        private string DateRelanceAffichee(RappelDuJour rappel) => rappel.DateRelance.UtcVersHeureLocale().ToString("dd/MM/yyyy HH:mm");
     }
 }

@@ -58,7 +58,7 @@
 
                     <div class="mb-2">
                         <label>@Localizer["PopupAction_DateRelance"]</label>
-                        <input type="date" class="form-control" @bind="Saisie.DateRelance" disabled="@(LectureSeule || !DateRelanceSaisissable)" />
+                        <input type="datetime-local" class="form-control" @bind="Saisie.DateRelance" disabled="@(LectureSeule || !DateRelanceSaisissable)" />
                     </div>
 
                     <div class="mb-2">

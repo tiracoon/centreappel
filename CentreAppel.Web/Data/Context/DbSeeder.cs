@@ -199,7 +199,7 @@ public static class DbSeeder
             await context.SaveChangesAsync(cancellationToken);
 
             context.ActionsCampagne.AddRange(
-                NouvelleAction(ligne.IdLCampagne, new DateTime(2025, 10, 15, 10, 0, 0, DateTimeKind.Utc), mmartin.IdOperateur, typeAppel.IdTypeContact, dARappeler.IdDeroulement, mmartin.IdOperateur, dateRelance: new DateOnly(2025, 10, 22)),
+                NouvelleAction(ligne.IdLCampagne, new DateTime(2025, 10, 15, 10, 0, 0, DateTimeKind.Utc), mmartin.IdOperateur, typeAppel.IdTypeContact, dARappeler.IdDeroulement, mmartin.IdOperateur, dateRelance: new DateTime(2025, 10, 22, 9, 0, 0, DateTimeKind.Utc)),
                 NouvelleAction(ligne.IdLCampagne, new DateTime(2025, 10, 22, 11, 15, 0, DateTimeKind.Utc), spetit.IdOperateur, typeAppel.IdTypeContact, dDoublon.IdDeroulement, spetit.IdOperateur));
             await context.SaveChangesAsync(cancellationToken);
         }
@@ -386,7 +386,7 @@ public static class DbSeeder
         {
             var ligne = await AjouterLigneAsync("TEST Déroulement - À rappeler");
             context.ActionsCampagne.Add(NouvelleAction(ligne.IdLCampagne, jour, spetit.IdOperateur, typeAppel.IdTypeContact, dARappeler.IdDeroulement, spetit.IdOperateur,
-                dateRelance: DateOnly.FromDateTime(jour).AddDays(3)));
+                dateRelance: jour.AddDays(3)));
             await context.SaveChangesAsync(cancellationToken);
         }
 
@@ -414,7 +414,7 @@ public static class DbSeeder
             var ligne = await AjouterLigneAsync("TEST Déroulement - Ne plus contacter");
             context.ActionsCampagne.Add(NouvelleAction(ligne.IdLCampagne, jour, spetit.IdOperateur, typeAppel.IdTypeContact, dNePlusContacter.IdDeroulement, spetit.IdOperateur,
                 idInteret: iInteresseMag.IdInteret,
-                dateRelance: DateOnly.FromDateTime(jour).AddDays(5),
+                dateRelance: jour.AddDays(5),
                 dateAchat: DateOnly.FromDateTime(jour).AddDays(-2),
                 idCanal: cMagasin.IdCanal));
             context.ClientsHorsContact.Add(new ClientHorsContactEntity
@@ -501,7 +501,7 @@ public static class DbSeeder
     // l'attribue à l'insertion, atomiquement, à partir du MAX existant pour la ligne.
     private static ActionCampagneEntity NouvelleAction(
         long idLCampagne, DateTime dhAction, long idOperateur, int idTypeContact, int idDeroulement, long idOperateurCm,
-        int? idInteret = null, DateOnly? dateRelance = null, DateOnly? dateAchat = null, int? idCanal = null, string? commentaireLibre = null)
+        int? idInteret = null, DateTime? dateRelance = null, DateOnly? dateAchat = null, int? idCanal = null, string? commentaireLibre = null)
     {
         return new ActionCampagneEntity
         {

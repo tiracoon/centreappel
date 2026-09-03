@@ -23,8 +23,10 @@ public class ActionCampagneEntity : AuditableEntityWithOperateur
     public int? IdInteret { get; set; }
     public InteretClientEntity? Interet { get; set; }
 
-    // Conditionné à Déroulement = « À rappeler »
-    public DateOnly? DateRelance { get; set; }
+    // Conditionné à Déroulement = « À rappeler » — date ET heure (stockée en UTC, cf.
+    // CentreAppel.Web.Application.Extensions.DateTimeExtensions pour la conversion à
+    // l'affichage/la saisie).
+    public DateTime? DateRelance { get; set; }
 
     // Conditionné à Intérêt = « Vente validée »
     public DateOnly? DateAchat { get; set; }

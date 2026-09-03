@@ -10,6 +10,6 @@ public class RappelDuJour
     public string NomCampagne { get; set; } = string.Empty;
     public string? RaisonSociale { get; set; }
     public string? Telephone { get; set; }
-    public DateOnly DateRelance { get; set; }
+    public DateTime DateRelance { get; set; }
     public string? LoginOperateurDerniereAction { get; set; }
 }

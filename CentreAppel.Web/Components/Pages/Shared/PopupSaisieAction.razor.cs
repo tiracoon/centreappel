@@ -1,3 +1,4 @@
+using CentreAppel.Web.Application.Extensions;
 using CentreAppel.Web.Application.Models;
 using CentreAppel.Web.Application.Services;
 using CentreAppel.Web.Enum;
@@ -133,7 +134,9 @@ namespace CentreAppel.Web.Components.Pages.Shared
                     IdTypeContact = LigneCampagnePopup.IdTypeContact,
                     IdDeroulement = LigneCampagnePopup.IdDeroulement,
                     IdInteret = LigneCampagnePopup.IdInteret,
-                    DateRelance = LigneCampagnePopup.DateRelance,
+                    // DateRelance est stockée en UTC ; Saisie.DateRelance alimente directement le
+                    // <input type="datetime-local"> (@bind), qui doit recevoir une heure locale.
+                    DateRelance = LigneCampagnePopup.DateRelance?.UtcVersHeureLocale(),
                     DateAchat = LigneCampagnePopup.DateAchat,
                     IdCanal = LigneCampagnePopup.IdCanal,
                     IdCommentaire = LigneCampagnePopup.IdCommentaire,
@@ -166,6 +169,13 @@ namespace CentreAppel.Web.Components.Pages.Shared
             if (idOperateur is null) return;
 
             Saisie.IdOperateur = idOperateur.Value;
+
+            // Saisie.DateRelance vient du <input type="datetime-local"> : heure locale saisie par
+            // l'opérateur, à convertir en UTC avant stockage (colonne timestamptz).
+            if (Saisie.DateRelance is not null)
+            {
+                Saisie.DateRelance = Saisie.DateRelance.Value.HeureLocaleVersUtc();
+            }
 
             Logger.LogInformation("Opérateur {IdOperateur} clique sur Enregistrer pour la ligne {IdLCampagne}", idOperateur, Saisie.IdLCampagne);
 
