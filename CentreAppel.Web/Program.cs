@@ -1,7 +1,9 @@
 using System.Globalization;
+using System.Security.Claims;
 using CentreAppel.Web.Application.Services;
 using CentreAppel.Web.Components;
 using CentreAppel.Web.Data.Context;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -25,6 +27,35 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     {
         options.LoginPath = "/connexion";
         options.AccessDeniedPath = "/acces-refuse";
+
+        // Revalide l'opérateur du cookie à chaque requête authentifiée contre la base ACTUELLEMENT
+        // connectée. Sans ça, un cookie émis pendant que l'appli pointait sur une autre base (ex.
+        // Render, ou un reseeding qui a recréé les opérateurs avec d'autres id) reste "valide" aux
+        // yeux du cookie mais désigne un IdOperateur qui n'existe plus ici — symptôme muet : aucune
+        // campagne visible, aucune erreur, puisque les jointures sur cet IdOperateur ne trouvent
+        // simplement rien. Ici, on déconnecte explicitement et on renvoie vers /connexion.
+        options.Events.OnValidatePrincipal = async context =>
+        {
+            var idOperateurClaim = context.Principal?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (idOperateurClaim is null || !long.TryParse(idOperateurClaim, out var idOperateur))
+            {
+                context.RejectPrincipal();
+                return;
+            }
+
+            var dbFactory = context.HttpContext.RequestServices.GetRequiredService<IDbContextFactory<ApplicationDbContext>>();
+            await using var db = await dbFactory.CreateDbContextAsync();
+            var operateurValide = await db.Operateurs.AnyAsync(o => o.IdOperateur == idOperateur && o.IsActive);
+
+            if (!operateurValide)
+            {
+                context.HttpContext.RequestServices.GetRequiredService<ILogger<Program>>()
+                    .LogWarning("Cookie rejeté : IdOperateur {IdOperateur} introuvable ou inactif dans la base connectée.", idOperateur);
+
+                context.RejectPrincipal();
+                await context.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            }
+        };
     });
 builder.Services.AddAuthorization();
 
