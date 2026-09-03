@@ -95,6 +95,20 @@ namespace CentreAppel.Web.Components.Pages.SuiviCampagnes
             LigneSelectionnee = ligne;
         }
 
+        // Rien dans la spec n'interdit formellement une nouvelle action sur une ligne déjà "Ne plus
+        // contacter" (§3.4 dit même l'inverse : une nouvelle action est toujours possible) - mais le
+        // déroulement insère le client dans CLIENTS_HORS_CONTACT (§2.3), donc le recontacter via
+        // Relance n'a pas de sens métier. Bouton désactivé + ligne signalée en attendant un arbitrage.
+        private static bool LigneNePlusContacter(LigneCampagneEnCours ligne) => ligne.DeroulementCode == CodesDeroulement.NePlusContacter;
+
+        private string? ClasseLigne(LigneCampagneEnCours ligne)
+        {
+            var classes = new List<string>();
+            if (ligne == LigneSelectionnee) classes.Add("selectionnee");
+            if (LigneNePlusContacter(ligne)) classes.Add("ne-plus-contacter");
+            return classes.Count == 0 ? null : string.Join(' ', classes);
+        }
+
         private async Task OnProchainContactAsync()
         {
             if (CampagneSelectionnee is null) return;

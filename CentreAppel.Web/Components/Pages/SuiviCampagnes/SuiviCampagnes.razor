@@ -43,7 +43,7 @@
 
     <section class="zone-boutons barre-actions">
         <button type="button" class="btn btn-outline-secondary" @onclick="OnProchainContactAsync" disabled="@(CampagneSelectionnee is null || CampagneSelectionnee.NbATraiter == 0)">@Localizer["SuiviCampagnes_BoutonProchainContact"]</button>
-        <button type="button" class="btn btn-outline-secondary" @onclick="OnRelanceAsync" disabled="@(LigneSelectionnee is null)">@Localizer["SuiviCampagnes_BoutonRelance"]</button>
+        <button type="button" class="btn btn-outline-secondary" @onclick="OnRelanceAsync" disabled="@(LigneSelectionnee is null || LigneNePlusContacter(LigneSelectionnee))">@Localizer["SuiviCampagnes_BoutonRelance"]</button>
         <button type="button" class="btn btn-outline-secondary" @onclick="OnHistoriqueAsync" disabled="@(LigneSelectionnee is null)">@Localizer["SuiviCampagnes_BoutonHistorique"]</button>
 
         @if (MessageProchainContact is not null)
@@ -78,7 +78,7 @@
                     {
                         @foreach (var ligne in LignesCampagne)
                         {
-                            <tr @key="ligne.IdLCampagne" class="@(ligne == LigneSelectionnee ? "selectionnee" : null)"
+                            <tr @key="ligne.IdLCampagne" class="@ClasseLigne(ligne)"
                                 @onclick="() => SelectLigne(ligne)">
                                 @foreach (var colonne in ColonnesLigne)
                                 {
