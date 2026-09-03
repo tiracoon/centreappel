@@ -1,5 +1,9 @@
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    /* Établit un contexte de hauteur réelle (pas juste "grandit avec le contenu") jusqu'à .content,
+       pour que des grilles réglables en pourcentage de la page (ex. SuiviCampagnes) puissent se
+       dimensionner par rapport à la hauteur disponible plutôt que par rapport à leur propre contenu. */
+    height: 100%;
 }
 
 a, .btn-link {
@@ -18,6 +22,15 @@ a, .btn-link {
 
 .content {
     padding-top: 1.1rem;
+    /* Suite de la chaîne de hauteur (voir html, body ci-dessus) : .content remplit l'espace
+       restant sous le menu et devient lui-même un contexte de hauteur pour ses pages. overflow-y
+       en garde-fou pour les pages qui ne gèrent pas leur propre défilement interne (tout sauf
+       Suivi des campagnes actuellement) : sans ça, leur contenu déborderait au lieu de défiler. */
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 h1:focus {

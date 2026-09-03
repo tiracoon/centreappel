@@ -2,10 +2,15 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    /* Suite de la chaîne de hauteur (voir wwwroot/app.css) */
+    height: 100%;
 }
 
 main {
     flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .top-row {

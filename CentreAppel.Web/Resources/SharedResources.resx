@@ -220,6 +220,9 @@
   <data name="SuiviCampagnes_AucuneCampagne" xml:space="preserve">
     <value>Aucune campagne active.</value>
   </data>
+  <data name="SuiviCampagnes_AucuneLigne" xml:space="preserve">
+    <value>Aucune ligne à afficher.</value>
+  </data>
   <data name="SuiviCampagnes_ProchainContact" xml:space="preserve">
     <value>Prochain contact</value>
   </data>

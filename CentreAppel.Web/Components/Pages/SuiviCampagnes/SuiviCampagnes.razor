@@ -6,83 +6,92 @@
 
 <h1>@Localizer["SuiviCampagnes_PageTitle"]</h1>
 
-<h2 class="section-title">@Localizer["SuiviCampagnes_SectionCampagnesEnCours"]</h2>
-
-@if (CampagnesEnCours.Count == 0)
-{
-    <p><em>@Localizer["SuiviCampagnes_AucuneCampagne"]</em></p>
-}
-else
-{
-    <div class="table-scroll">
-        <table class="table campagnes-table">
-            <thead>
-                <tr>
-                    <th>@Localizer["SuiviCampagnes_ColonneCampagne"]</th>
-                    <th>@Localizer["SuiviCampagnes_ColonneDate"]</th>
-                    <th>@Localizer["SuiviCampagnes_ColonneLignes"]</th>
-                    <th>@Localizer["SuiviCampagnes_ColonneATraiter"]</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var campagne in CampagnesEnCours!)
-                {
-                    <tr @key="campagne.IdCampagne" class="@(campagne.IdCampagne == CampagneSelectionnee?.IdCampagne ? "selectionnee" : null)" @onclick="() => SelectCampagneAsync(campagne)">
-                        <td>@campagne.Nom</td>
-                        <td>@campagne.DateCampagne.ToString("dd/MM/yyyy")</td>
-                        <td>@campagne.NbLignes</td>
-                        <td>@campagne.NbATraiter</td>
+<div class="suivi-layout">
+    <section class="zone-campagnes">
+        <h2 class="section-title">@Localizer["SuiviCampagnes_SectionCampagnesEnCours"]</h2>
+        <div class="table-scroll zone-scroll">
+            <table class="table campagnes-table">
+                <thead>
+                    <tr>
+                        <th>@Localizer["SuiviCampagnes_ColonneCampagne"]</th>
+                        <th>@Localizer["SuiviCampagnes_ColonneDate"]</th>
+                        <th>@Localizer["SuiviCampagnes_ColonneLignes"]</th>
+                        <th>@Localizer["SuiviCampagnes_ColonneATraiter"]</th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-}
+                </thead>
+                <tbody>
+                    @if (CampagnesEnCours.Count == 0)
+                    {
+                        <tr><td colspan="4"><em>@Localizer["SuiviCampagnes_AucuneCampagne"]</em></td></tr>
+                    }
+                    else
+                    {
+                        @foreach (var campagne in CampagnesEnCours)
+                        {
+                            <tr @key="campagne.IdCampagne" class="@(campagne.IdCampagne == CampagneSelectionnee?.IdCampagne ? "selectionnee" : null)" @onclick="() => SelectCampagneAsync(campagne)">
+                                <td>@campagne.Nom</td>
+                                <td>@campagne.DateCampagne.ToString("dd/MM/yyyy")</td>
+                                <td>@campagne.NbLignes</td>
+                                <td>@campagne.NbATraiter</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
 
-@if (CampagneSelectionnee is not null && LignesCampagne.Count>0)
-{
-    <div class="barre-actions">
-        <button type="button" class="btn btn-outline-secondary" @onclick="OnProchainContactAsync" disabled="@(CampagneSelectionnee?.NbATraiter == 0)">@Localizer["SuiviCampagnes_BoutonProchainContact"]</button>
+    <section class="zone-boutons barre-actions">
+        <button type="button" class="btn btn-outline-secondary" @onclick="OnProchainContactAsync" disabled="@(CampagneSelectionnee is null || CampagneSelectionnee.NbATraiter == 0)">@Localizer["SuiviCampagnes_BoutonProchainContact"]</button>
         <button type="button" class="btn btn-outline-secondary" @onclick="OnRelanceAsync" disabled="@(LigneSelectionnee is null)">@Localizer["SuiviCampagnes_BoutonRelance"]</button>
         <button type="button" class="btn btn-outline-secondary" @onclick="OnHistoriqueAsync" disabled="@(LigneSelectionnee is null)">@Localizer["SuiviCampagnes_BoutonHistorique"]</button>
-    </div>
 
-    @if (MessageProchainContact is not null)
-    {
-        <p class="message-info">@MessageProchainContact</p>
-    }
+        @if (MessageProchainContact is not null)
+        {
+            <span class="message-info">@MessageProchainContact</span>
+        }
+    </section>
 
-    @* 
-    @if (MessageVerrou is not null)
-    {
-        <p class="message-erreur">@MessageVerrou</p>
-    }*@
+    <section class="zone-lignes">
+        @*
+        @if (MessageVerrou is not null)
+        {
+            <p class="message-erreur">@MessageVerrou</p>
+        }*@
 
-    <div class="table-scroll">
-        <table class="table lignes-table">
-            <thead>
-                <tr>
-                    @foreach (var colonne in ColonnesLigne)
-                    {
-                        <th>@colonne.Libelle</th>
-                    }
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var ligne in LignesCampagne)
-                {
-                    <tr @key="ligne.IdLCampagne" class="@(ligne == LigneSelectionnee ? "selectionnee" : null)"
-                        @onclick="() => SelectLigne(ligne)">
+        <div class="table-scroll zone-scroll">
+            <table class="table lignes-table">
+                <thead>
+                    <tr>
                         @foreach (var colonne in ColonnesLigne)
                         {
-                            <td>@(colonne.Valeur(ligne) ?? "—")</td>
+                            <th>@colonne.Libelle</th>
                         }
                     </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-}
+                </thead>
+                <tbody>
+                    @if (LignesCampagne.Count == 0)
+                    {
+                        <tr><td colspan="@ColonnesLigne.Length"><em>@Localizer["SuiviCampagnes_AucuneLigne"]</em></td></tr>
+                    }
+                    else
+                    {
+                        @foreach (var ligne in LignesCampagne)
+                        {
+                            <tr @key="ligne.IdLCampagne" class="@(ligne == LigneSelectionnee ? "selectionnee" : null)"
+                                @onclick="() => SelectLigne(ligne)">
+                                @foreach (var colonne in ColonnesLigne)
+                                {
+                                    <td>@(colonne.Valeur(ligne) ?? "—")</td>
+                                }
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
 
 @if (IdLCampagnePopupOuverte is not null)
 {
