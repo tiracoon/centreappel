@@ -1,5 +1,6 @@
 using CentreAppel.Web.Application.Models;
 using CentreAppel.Web.Application.Services;
+using CentreAppel.Web.Enum;
 using Microsoft.AspNetCore.Components;
 
 namespace CentreAppel.Web.Components.Pages.SuiviCampagnes
@@ -20,6 +21,7 @@ namespace CentreAppel.Web.Components.Pages.SuiviCampagnes
         private CampagneEnCours? CampagneSelectionnee { get; set; }
         private LigneCampagneEnCours? LigneSelectionnee { get; set; }
         private long? IdLCampagnePopupOuverte { get; set; }
+        private ModeOuverturePopup ModePopup { get; set; }
 
         private PeriodicTimer? timerRafraichissement;
         private string? MessageProchainContact { get; set; }
@@ -106,6 +108,7 @@ namespace CentreAppel.Web.Components.Pages.SuiviCampagnes
                 return;
             }
 
+            ModePopup = ModeOuverturePopup.ProchainContact;
             await OpenPopupLigneSelectionneeAsync();
             MessageProchainContact = null;
             await SelectLigne(LignesCampagne.FirstOrDefault(l => l.IdLCampagne == ligne));
@@ -116,12 +119,14 @@ namespace CentreAppel.Web.Components.Pages.SuiviCampagnes
         private async Task OnRelanceAsync()
         {
             Logger.LogInformation("Opérateur {IdOperateur} clique sur Relance pour la ligne {IdLCampagne}", await GetIdOperateurConnecteAsync(), LigneSelectionnee?.IdLCampagne);
+            ModePopup = ModeOuverturePopup.Relance;
             await OpenPopupLigneSelectionneeAsync();
         }
 
         private async Task OnHistoriqueAsync()
         {
             Logger.LogInformation("Opérateur {IdOperateur} clique sur Historique pour la ligne {IdLCampagne}", await GetIdOperateurConnecteAsync(), LigneSelectionnee?.IdLCampagne);
+            ModePopup = ModeOuverturePopup.Historique;
             await OpenPopupLigneSelectionneeAsync();
         }
 

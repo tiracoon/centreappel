@@ -1,5 +1,6 @@
 using CentreAppel.Web.Application.Models;
 using CentreAppel.Web.Application.Services;
+using CentreAppel.Web.Enum;
 using Microsoft.AspNetCore.Components;
 
 namespace CentreAppel.Web.Components.Pages.Shared
@@ -8,6 +9,11 @@ namespace CentreAppel.Web.Components.Pages.Shared
     {
         [Parameter]
         public long? IdLCampagne { get; set; }
+
+        // Détermine l'affichage (champs saisissables, boutons visibles) - voir LectureSeule et
+        // EnregistrerVisible ci-dessous.
+        [Parameter, EditorRequired]
+        public ModeOuverturePopup Mode { get; set; }
 
         [Inject]
         private ICampagneService CampagneService { get; set; } = default!;
@@ -48,6 +54,11 @@ namespace CentreAppel.Web.Components.Pages.Shared
         private bool InteretSaisissable => CodeDeroulementSelectionne == CodesDeroulement.ContactArgumente;
         private bool DateRelanceSaisissable => CodeDeroulementSelectionne == CodesDeroulement.ARappeler;
         private bool VenteValidee => CodeInteretSelectionne == CodesInteret.VenteValidee;
+
+        // Historique = consultation uniquement (§10.5) : tous les champs de saisie sont désactivés
+        // et il n'y a rien à enregistrer.
+        private bool LectureSeule => Mode == ModeOuverturePopup.Historique;
+        private bool EnregistrerVisible => Mode != ModeOuverturePopup.Historique;
 
         // Appelé après tout changement de Déroulement ou d'Intérêt : vide les champs devenus
         // non saisissables. "Ne plus contacter" n'a pas de cas particulier — ce n'est ni

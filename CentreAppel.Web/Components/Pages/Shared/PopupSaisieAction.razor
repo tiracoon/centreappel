@@ -26,7 +26,7 @@
                 <div class="popup-saisie">
                     <div class="mb-2">
                         <label>@Localizer["PopupAction_TypeContact"]</label>
-                        <select class="form-select" @bind="Saisie.IdTypeContact">
+                        <select class="form-select" @bind="Saisie.IdTypeContact" disabled="@LectureSeule">
                             @foreach (var type in TypesContact)
                             {
                                 <option value="@type.IdTypeContact">@LibelleTypeContact(type)</option>
@@ -36,7 +36,7 @@
 
                     <div class="mb-2">
                         <label>@Localizer["PopupAction_Deroulement"]</label>
-                        <select class="form-select" @bind="Saisie.IdDeroulement" @bind:after="OnDeroulementChange">
+                        <select class="form-select" @bind="Saisie.IdDeroulement" @bind:after="OnDeroulementChange" disabled="@LectureSeule">
                             <option value="">@Localizer["PopupAction_ChoixVide"]</option>
                             @foreach (var deroulement in Deroulements)
                             {
@@ -47,7 +47,7 @@
 
                     <div class="mb-2">
                         <label>@Localizer["PopupAction_Interet"]</label>
-                        <select class="form-select" @bind="Saisie.IdInteret" @bind:after="OnInteretChange" disabled="@(!InteretSaisissable)">
+                        <select class="form-select" @bind="Saisie.IdInteret" @bind:after="OnInteretChange" disabled="@(LectureSeule || !InteretSaisissable)">
                             <option value="">@Localizer["PopupAction_ChoixVide"]</option>
                             @foreach (var interet in Interets)
                             {
@@ -58,17 +58,17 @@
 
                     <div class="mb-2">
                         <label>@Localizer["PopupAction_DateRelance"]</label>
-                        <input type="date" class="form-control" @bind="Saisie.DateRelance" disabled="@(!DateRelanceSaisissable)" />
+                        <input type="date" class="form-control" @bind="Saisie.DateRelance" disabled="@(LectureSeule || !DateRelanceSaisissable)" />
                     </div>
 
                     <div class="mb-2">
                         <label>@Localizer["PopupAction_DateAchat"]</label>
-                        <input type="date" class="form-control" @bind="Saisie.DateAchat" disabled="@(!VenteValidee)" />
+                        <input type="date" class="form-control" @bind="Saisie.DateAchat" disabled="@(LectureSeule || !VenteValidee)" />
                     </div>
 
                     <div class="mb-2">
                         <label>@Localizer["PopupAction_Canal"]</label>
-                        <select class="form-select" @bind="Saisie.IdCanal" disabled="@(!VenteValidee)">
+                        <select class="form-select" @bind="Saisie.IdCanal" disabled="@(LectureSeule || !VenteValidee)">
                             <option value="">@Localizer["PopupAction_ChoixVide"]</option>
                             @foreach (var canal in Canaux)
                             {
@@ -79,7 +79,7 @@
 
                     <div class="mb-2 champ-pleine-largeur">
                         <label>@Localizer["PopupAction_Commentaire"]</label>
-                        <select class="form-select" @bind="Saisie.IdCommentaire">
+                        <select class="form-select" @bind="Saisie.IdCommentaire" disabled="@LectureSeule">
                             <option value="">@Localizer["PopupAction_ChoixVide"]</option>
                             @foreach (var commentaire in Commentaires)
                             {
@@ -90,7 +90,10 @@
 
                     <div class="popup-actions champ-pleine-largeur">
                         <button type="button" class="btn btn-secondary" @onclick="CancelAsync">@Localizer["PopupAction_Annuler"]</button>
-                        <button type="button" class="btn btn-primary" @onclick="SaveAsync" disabled="@(Saisie.IdTypeContact is null || Saisie.IdDeroulement is null)">@Localizer["PopupAction_Enregistrer"]</button>
+                        @if (EnregistrerVisible)
+                        {
+                            <button type="button" class="btn btn-primary" @onclick="SaveAsync" disabled="@(Saisie.IdTypeContact is null || Saisie.IdDeroulement is null)">@Localizer["PopupAction_Enregistrer"]</button>
+                        }
                     </div>
                 </div>
 
