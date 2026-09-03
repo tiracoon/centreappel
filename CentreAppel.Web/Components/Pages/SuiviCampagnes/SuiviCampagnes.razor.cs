@@ -108,11 +108,12 @@ namespace CentreAppel.Web.Components.Pages.SuiviCampagnes
                 return;
             }
 
-            ModePopup = ModeOuverturePopup.ProchainContact;
-            await OpenPopupLigneSelectionneeAsync();
+            // Affectation directe (pas de passage par SelectLigne/OpenPopupLigneSelectionneeAsync,
+            // qui liraient encore l'ancienne LigneSelectionnee avant sa mise à jour) : évite un état
+            // intermédiaire où la popup s'ouvrirait un instant sur l'ancienne ligne sélectionnée.
             MessageProchainContact = null;
-            await SelectLigne(LignesCampagne.FirstOrDefault(l => l.IdLCampagne == ligne));
-
+            ModePopup = ModeOuverturePopup.ProchainContact;
+            LigneSelectionnee = LignesCampagne.FirstOrDefault(l => l.IdLCampagne == ligne);
             IdLCampagnePopupOuverte = ligne;
         }
 
