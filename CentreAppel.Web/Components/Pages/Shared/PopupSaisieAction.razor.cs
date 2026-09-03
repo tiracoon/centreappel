@@ -122,23 +122,40 @@ namespace CentreAppel.Web.Components.Pages.Shared
             Canaux = await CanalAchatService.GetCanauxAchatAsync(CancellationToken.None);
             Commentaires = await CampagneService.GetCommentairesCampagneAsync(LigneCampagnePopup.IdCampagne, CancellationToken.None);
 
-            // Modification : la ligne a déjà une dernière action, on repart de ses valeurs.
-            // Création : LigneCampagnePopup.IdDeroulement est null (aucune action existante),
-            // Saisie repart vide — sauf Type de contact, toujours pré-rempli sur la valeur par défaut.
+            // Historique (lecture seule) : on montre les valeurs de la dernière action existante,
+            // rien à créer. Tous les autres modes (Relance, Prochain contact, Traiter) ouvrent une
+            // nouvelle tentative — voir CreerNouvelleSaisieAction.
             // IdOperateur est renseigné au moment de l'enregistrement (SaveAsync), pas ici.
-            Saisie = new SaisieAction
-            {
-                IdLCampagne = idLCampagne,
-                IdTypeContact = LigneCampagnePopup.IdTypeContact ?? TypesContact.FirstOrDefault(t => t.Defaut)?.IdTypeContact,
-                IdDeroulement = LigneCampagnePopup.IdDeroulement,
-                IdInteret = LigneCampagnePopup.IdInteret,
-                DateRelance = LigneCampagnePopup.DateRelance,
-                DateAchat = LigneCampagnePopup.DateAchat,
-                IdCanal = LigneCampagnePopup.IdCanal,
-                IdCommentaire = LigneCampagnePopup.IdCommentaire,
-            };
+            Saisie = LectureSeule
+                ? new SaisieAction
+                {
+                    IdLCampagne = idLCampagne,
+                    IdTypeContact = LigneCampagnePopup.IdTypeContact,
+                    IdDeroulement = LigneCampagnePopup.IdDeroulement,
+                    IdInteret = LigneCampagnePopup.IdInteret,
+                    DateRelance = LigneCampagnePopup.DateRelance,
+                    DateAchat = LigneCampagnePopup.DateAchat,
+                    IdCanal = LigneCampagnePopup.IdCanal,
+                    IdCommentaire = LigneCampagnePopup.IdCommentaire,
+                }
+                : CreerNouvelleSaisieAction(idLCampagne);
 
             idLCampagneCharge = idLCampagne;
+        }
+
+        // TODO à préciser dans les specs : seul Type de contact a un défaut écrit noir sur blanc
+        // (§5.3 : "toujours — pré-rempli à Appel"). Pour tous les autres champs (Déroulement,
+        // Intérêt, Date de relance, Date d'achat, Canal, Commentaire), rien n'indique de valeur par
+        // défaut pour une nouvelle tentative (Relance notamment) — ils restent donc vides ici, pour
+        // que l'opérateur choisisse explicitement plutôt que d'hériter par erreur d'une valeur
+        // pré-sélectionnée sur un contact qui n'a pas encore eu lieu. À confirmer avec le métier.
+        private SaisieAction CreerNouvelleSaisieAction(long idLCampagne)
+        {
+            return new SaisieAction
+            {
+                IdLCampagne = idLCampagne,
+                IdTypeContact = TypesContact.FirstOrDefault(t => t.Defaut)?.IdTypeContact,
+            };
         }
 
         private async Task SaveAsync()
