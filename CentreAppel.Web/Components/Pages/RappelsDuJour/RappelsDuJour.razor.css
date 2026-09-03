@@ -1,5 +1,17 @@
+.rappels-sous-titre {
+    color: #6c757d;
+}
+
 .table-scroll {
     overflow-x: auto;
+}
+
+.rappels-table {
+    white-space: nowrap;
+}
+
+.en-retard {
+    color: #dc3545;
 }
 
 .message-erreur {

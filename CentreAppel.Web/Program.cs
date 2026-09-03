@@ -73,6 +73,7 @@ builder.Services.AddScoped<ICampagneService, CampagneService>();
 builder.Services.AddScoped<ClientService>();
 builder.Services.AddScoped<CanalAchatService>();
 builder.Services.AddScoped<DeroulementService>();
+builder.Services.AddScoped<RappelsDuJourService>();
 
 var app = builder.Build();
 

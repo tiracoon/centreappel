@@ -265,6 +265,9 @@
   <data name="RappelsDuJour_Aucun" xml:space="preserve">
     <value>Aucun rappel à traiter.</value>
   </data>
+  <data name="RappelsDuJour_EnRetard" xml:space="preserve">
+    <value>(en retard)</value>
+  </data>
 
   <data name="SuiviCampagnes_BoutonProchainContact" xml:space="preserve">
     <value>→ Prochain contact</value>

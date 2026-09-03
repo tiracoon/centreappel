@@ -1,4 +1,5 @@
 @inherits LayoutComponentBase
+@using CentreAppel.Web.Application.Extensions
 
 <div class="page">
     <div class="top-row px-4">
@@ -22,9 +23,9 @@
         </AuthorizeView>
     </div>
 
-    <AuthorizeView>
+    <AuthorizeView Context="menuContext">
         <Authorized>
-            <MenuHorizontal />
+            <MenuHorizontal IdOperateur="menuContext.User.GetIdOperateurConnecte()" />
         </Authorized>
     </AuthorizeView>
 
