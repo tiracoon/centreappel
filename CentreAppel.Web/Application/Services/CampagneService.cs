@@ -178,14 +178,12 @@ public class CampagneService(IDbContextFactory<ApplicationDbContext> dbContextFa
 
         await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 
-        var numAction = (await context.ActionsCampagne
-            .Where(a => a.IdLCampagne == saisie.IdLCampagne)
-            .MaxAsync(a => (int?)a.NumAction, cancellationToken) ?? 0) + 1;
-
+        // NumAction n'est plus calculé ici : un trigger PostgreSQL (migration
+        // AddTriggerNumActionParLigne) l'attribue à l'insertion, de façon atomique et valable
+        // aussi pour un éventuel import direct en base.
         context.ActionsCampagne.Add(new ActionCampagneEntity
         {
             IdLCampagne = saisie.IdLCampagne,
-            NumAction = numAction,
             DhAction = DateTime.UtcNow,
             IdOperateur = saisie.IdOperateur,
             IdTypeContact = saisie.IdTypeContact.Value,

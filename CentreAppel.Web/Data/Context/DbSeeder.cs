@@ -166,8 +166,8 @@ public static class DbSeeder
             await context.SaveChangesAsync(cancellationToken);
 
             context.ActionsCampagne.AddRange(
-                NouvelleAction(ligne.IdLCampagne, 1, new DateTime(2026, 2, 20, 9, 0, 0, DateTimeKind.Utc), mmartin.IdOperateur, typeAppel.IdTypeContact, dRepondeur.IdDeroulement, mmartin.IdOperateur),
-                NouvelleAction(ligne.IdLCampagne, 2, new DateTime(2026, 2, 25, 14, 30, 0, DateTimeKind.Utc), spetit.IdOperateur, typeAppel.IdTypeContact, dContactArgumente.IdDeroulement, spetit.IdOperateur, idInteret: iInteresseMag.IdInteret));
+                NouvelleAction(ligne.IdLCampagne, new DateTime(2026, 2, 20, 9, 0, 0, DateTimeKind.Utc), mmartin.IdOperateur, typeAppel.IdTypeContact, dRepondeur.IdDeroulement, mmartin.IdOperateur),
+                NouvelleAction(ligne.IdLCampagne, new DateTime(2026, 2, 25, 14, 30, 0, DateTimeKind.Utc), spetit.IdOperateur, typeAppel.IdTypeContact, dContactArgumente.IdDeroulement, spetit.IdOperateur, idInteret: iInteresseMag.IdInteret));
             await context.SaveChangesAsync(cancellationToken);
         }
     }
@@ -199,8 +199,8 @@ public static class DbSeeder
             await context.SaveChangesAsync(cancellationToken);
 
             context.ActionsCampagne.AddRange(
-                NouvelleAction(ligne.IdLCampagne, 1, new DateTime(2025, 10, 15, 10, 0, 0, DateTimeKind.Utc), mmartin.IdOperateur, typeAppel.IdTypeContact, dARappeler.IdDeroulement, mmartin.IdOperateur, dateRelance: new DateOnly(2025, 10, 22)),
-                NouvelleAction(ligne.IdLCampagne, 2, new DateTime(2025, 10, 22, 11, 15, 0, DateTimeKind.Utc), spetit.IdOperateur, typeAppel.IdTypeContact, dDoublon.IdDeroulement, spetit.IdOperateur));
+                NouvelleAction(ligne.IdLCampagne, new DateTime(2025, 10, 15, 10, 0, 0, DateTimeKind.Utc), mmartin.IdOperateur, typeAppel.IdTypeContact, dARappeler.IdDeroulement, mmartin.IdOperateur, dateRelance: new DateOnly(2025, 10, 22)),
+                NouvelleAction(ligne.IdLCampagne, new DateTime(2025, 10, 22, 11, 15, 0, DateTimeKind.Utc), spetit.IdOperateur, typeAppel.IdTypeContact, dDoublon.IdDeroulement, spetit.IdOperateur));
             await context.SaveChangesAsync(cancellationToken);
         }
     }
@@ -273,7 +273,7 @@ public static class DbSeeder
             context.LignesCampagne.Add(ligne);
             await context.SaveChangesAsync(cancellationToken);
 
-            context.ActionsCampagne.Add(NouvelleAction(ligne.IdLCampagne, 1, new DateTime(2026, 7, 28, 10, 0, 0, DateTimeKind.Utc), spetit.IdOperateur, typeAppel.IdTypeContact, dRepondeur.IdDeroulement, spetit.IdOperateur));
+            context.ActionsCampagne.Add(NouvelleAction(ligne.IdLCampagne, new DateTime(2026, 7, 28, 10, 0, 0, DateTimeKind.Utc), spetit.IdOperateur, typeAppel.IdTypeContact, dRepondeur.IdDeroulement, spetit.IdOperateur));
             await context.SaveChangesAsync(cancellationToken);
         }
 
@@ -378,14 +378,14 @@ public static class DbSeeder
         })
         {
             var ligne = await AjouterLigneAsync(libelle);
-            context.ActionsCampagne.Add(NouvelleAction(ligne.IdLCampagne, 1, jour, spetit.IdOperateur, typeAppel.IdTypeContact, deroulement.IdDeroulement, spetit.IdOperateur));
+            context.ActionsCampagne.Add(NouvelleAction(ligne.IdLCampagne, jour, spetit.IdOperateur, typeAppel.IdTypeContact, deroulement.IdDeroulement, spetit.IdOperateur));
             await context.SaveChangesAsync(cancellationToken);
         }
 
         // 7 : À rappeler -> Date de relance saisissable.
         {
             var ligne = await AjouterLigneAsync("TEST Déroulement - À rappeler");
-            context.ActionsCampagne.Add(NouvelleAction(ligne.IdLCampagne, 1, jour, spetit.IdOperateur, typeAppel.IdTypeContact, dARappeler.IdDeroulement, spetit.IdOperateur,
+            context.ActionsCampagne.Add(NouvelleAction(ligne.IdLCampagne, jour, spetit.IdOperateur, typeAppel.IdTypeContact, dARappeler.IdDeroulement, spetit.IdOperateur,
                 dateRelance: DateOnly.FromDateTime(jour).AddDays(3)));
             await context.SaveChangesAsync(cancellationToken);
         }
@@ -393,7 +393,7 @@ public static class DbSeeder
         // 8 : Contact argumenté + Intérêt (sans vente) -> Intérêt saisissable, reste grisé.
         {
             var ligne = await AjouterLigneAsync("TEST Déroulement - Contact argumenté (Intéressé Web)");
-            context.ActionsCampagne.Add(NouvelleAction(ligne.IdLCampagne, 1, jour, spetit.IdOperateur, typeAppel.IdTypeContact, dContactArgumente.IdDeroulement, spetit.IdOperateur,
+            context.ActionsCampagne.Add(NouvelleAction(ligne.IdLCampagne, jour, spetit.IdOperateur, typeAppel.IdTypeContact, dContactArgumente.IdDeroulement, spetit.IdOperateur,
                 idInteret: iInteresseWeb.IdInteret));
             await context.SaveChangesAsync(cancellationToken);
         }
@@ -401,7 +401,7 @@ public static class DbSeeder
         // 9 : Contact argumenté + Vente validée -> chaîne complète (Date d'achat + Canal saisissables).
         {
             var ligne = await AjouterLigneAsync("TEST Déroulement - Contact argumenté (Vente validée)");
-            context.ActionsCampagne.Add(NouvelleAction(ligne.IdLCampagne, 1, jour, spetit.IdOperateur, typeAppel.IdTypeContact, dContactArgumente.IdDeroulement, spetit.IdOperateur,
+            context.ActionsCampagne.Add(NouvelleAction(ligne.IdLCampagne, jour, spetit.IdOperateur, typeAppel.IdTypeContact, dContactArgumente.IdDeroulement, spetit.IdOperateur,
                 idInteret: iVenteValidee.IdInteret,
                 dateAchat: DateOnly.FromDateTime(jour).AddDays(-1),
                 idCanal: cWeb.IdCanal));
@@ -412,7 +412,7 @@ public static class DbSeeder
         // (pour vérifier que l'UI les grise/masque malgré la donnée) + insertion dans ClientsHorsContact.
         {
             var ligne = await AjouterLigneAsync("TEST Déroulement - Ne plus contacter");
-            context.ActionsCampagne.Add(NouvelleAction(ligne.IdLCampagne, 1, jour, spetit.IdOperateur, typeAppel.IdTypeContact, dNePlusContacter.IdDeroulement, spetit.IdOperateur,
+            context.ActionsCampagne.Add(NouvelleAction(ligne.IdLCampagne, jour, spetit.IdOperateur, typeAppel.IdTypeContact, dNePlusContacter.IdDeroulement, spetit.IdOperateur,
                 idInteret: iInteresseMag.IdInteret,
                 dateRelance: DateOnly.FromDateTime(jour).AddDays(5),
                 dateAchat: DateOnly.FromDateTime(jour).AddDays(-2),
@@ -436,7 +436,7 @@ public static class DbSeeder
         })
         {
             var ligne = await AjouterLigneAsync(libelle);
-            context.ActionsCampagne.Add(NouvelleAction(ligne.IdLCampagne, 1, jour, spetit.IdOperateur, typeContact.IdTypeContact, dRepondeur.IdDeroulement, spetit.IdOperateur));
+            context.ActionsCampagne.Add(NouvelleAction(ligne.IdLCampagne, jour, spetit.IdOperateur, typeContact.IdTypeContact, dRepondeur.IdDeroulement, spetit.IdOperateur));
             await context.SaveChangesAsync(cancellationToken);
         }
 
@@ -452,7 +452,7 @@ public static class DbSeeder
                 var operateurAction = i % 2 == 0 ? spetit : mmartin;
                 var deroulement = deroulementsCycle[i];
                 context.ActionsCampagne.Add(NouvelleAction(
-                    ligne.IdLCampagne, i + 1, jour.AddDays(i - 10), operateurAction.IdOperateur, typeAppel.IdTypeContact, deroulement.IdDeroulement, operateurAction.IdOperateur,
+                    ligne.IdLCampagne, jour.AddDays(i - 10), operateurAction.IdOperateur, typeAppel.IdTypeContact, deroulement.IdDeroulement, operateurAction.IdOperateur,
                     idInteret: deroulement == dContactArgumente ? iInteresseWeb.IdInteret : null));
             }
             await context.SaveChangesAsync(cancellationToken);
@@ -497,14 +497,15 @@ public static class DbSeeder
         };
     }
 
+    // NumAction n'est pas fourni : un trigger PostgreSQL (migration AddTriggerNumActionParLigne)
+    // l'attribue à l'insertion, atomiquement, à partir du MAX existant pour la ligne.
     private static ActionCampagneEntity NouvelleAction(
-        long idLCampagne, int numAction, DateTime dhAction, long idOperateur, int idTypeContact, int idDeroulement, long idOperateurCm,
+        long idLCampagne, DateTime dhAction, long idOperateur, int idTypeContact, int idDeroulement, long idOperateurCm,
         int? idInteret = null, DateOnly? dateRelance = null, DateOnly? dateAchat = null, int? idCanal = null, string? commentaireLibre = null)
     {
         return new ActionCampagneEntity
         {
             IdLCampagne = idLCampagne,
-            NumAction = numAction,
             DhAction = dhAction,
             IdOperateur = idOperateur,
             IdTypeContact = idTypeContact,
