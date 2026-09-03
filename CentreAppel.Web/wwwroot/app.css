@@ -20,6 +20,21 @@ a, .btn-link {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
+/* Boutons d'action "outline-secondary" actifs (Suivi des campagnes : Prochain contact/Relance/
+   Historique ; Rappels du jour : Traiter) — même teinte que le surlignage des campagnes
+   sélectionnées, pour se distinguer nettement des boutons désactivés (style Bootstrap par défaut,
+   trop proche visuellement de l'état actif en outline-secondary). Global (pas dans un .razor.css
+   scopé) pour rester cohérent entre les deux pages. */
+.btn-outline-secondary:not(:disabled) {
+    background-color: rgba(13, 110, 253, 0.08);
+    border-color: #0d6efd;
+    color: #0a58ca;
+}
+
+    .btn-outline-secondary:not(:disabled):hover {
+        background-color: rgba(13, 110, 253, 0.18);
+    }
+
 .content {
     padding-top: 1.1rem;
     /* Suite de la chaîne de hauteur (voir html, body ci-dessus) : .content remplit l'espace

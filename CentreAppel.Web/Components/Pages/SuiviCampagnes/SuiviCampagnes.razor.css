@@ -86,19 +86,6 @@
     gap: 0.5rem;
 }
 
-/* Même teinte que le surlignage des campagnes (.campagnes-table tr.selectionnee), pour que
-   les boutons actifs se distinguent nettement des boutons desactivés (style Bootstrap par défaut,
-   trop proche visuellement de l'état actif en outline-secondary). */
-.barre-actions .btn-outline-secondary:not(:disabled) {
-    background-color: rgba(13, 110, 253, 0.08);
-    border-color: #0d6efd;
-    color: #0a58ca;
-}
-
-    .barre-actions .btn-outline-secondary:not(:disabled):hover {
-        background-color: rgba(13, 110, 253, 0.18);
-    }
-
 .message-info {
     color: #0d6efd;
 }
