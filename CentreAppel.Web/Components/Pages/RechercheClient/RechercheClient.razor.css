@@ -1,0 +1,59 @@
+h1 {
+    font-size: 1.75rem;
+    font-weight: 600;
+}
+
+.recherche-sous-titre {
+    color: #6c757d;
+}
+
+.recherche-barre {
+    display: flex;
+    gap: 0.5rem;
+    max-width: 640px;
+    margin-bottom: 1rem;
+}
+
+.recherche-input-wrapper {
+    position: relative;
+    flex: 1;
+}
+
+.recherche-icone {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+    pointer-events: none;
+}
+
+.recherche-input {
+    padding-left: 2.25rem;
+}
+
+.recherche-compteur {
+    color: #6c757d;
+    font-size: 0.85rem;
+}
+
+.recherche-note {
+    color: #6c757d;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1rem;
+}
+
+.recherche-cloturee {
+    color: #6c757d;
+}
+
+.en-retard {
+    color: #dc3545;
+}
+
+.table-scroll {
+    overflow-x: auto;
+}

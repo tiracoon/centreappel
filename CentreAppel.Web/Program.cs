@@ -74,6 +74,7 @@ builder.Services.AddScoped<ClientService>();
 builder.Services.AddScoped<CanalAchatService>();
 builder.Services.AddScoped<DeroulementService>();
 builder.Services.AddScoped<RappelsDuJourService>();
+builder.Services.AddScoped<RechercheClientService>();
 
 var app = builder.Build();
 

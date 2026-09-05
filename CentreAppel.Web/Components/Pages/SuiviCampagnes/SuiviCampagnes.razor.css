@@ -1,6 +1,10 @@
 .section-title {
     margin-top: 0;
-    font-size: 1.1rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #6c757d;
 }
 
 /* Répartition réglable de l'espace vertical restant (sous le titre h1, le menu et l'en-tête de

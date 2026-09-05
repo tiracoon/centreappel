@@ -185,7 +185,7 @@
     <value>Correspondant</value>
   </data>
   <data name="SuiviCampagnes_ColonneTelephone" xml:space="preserve">
-    <value>Téléphone</value>
+    <value>Tél.</value>
   </data>
   <data name="SuiviCampagnes_ColonneEmail" xml:space="preserve">
     <value>Email</value>
@@ -203,10 +203,10 @@
     <value>Déroulement</value>
   </data>
   <data name="SuiviCampagnes_ColonneDateRelance" xml:space="preserve">
-    <value>Date de relance</value>
+    <value>Relance</value>
   </data>
   <data name="SuiviCampagnes_ColonneInteretClient" xml:space="preserve">
-    <value>Intérêt du client</value>
+    <value>Intérêt</value>
   </data>
   <data name="SuiviCampagnes_ColonneCanalAchat" xml:space="preserve">
     <value>Canal d'achat</value>
@@ -267,6 +267,9 @@
   </data>
   <data name="RappelsDuJour_EnRetard" xml:space="preserve">
     <value>(en retard)</value>
+  </data>
+  <data name="RappelsDuJour_Note" xml:space="preserve">
+    <value>Le bouton « Traiter » ouvre la ligne dans la popup de saisie d'action (verrou inclus), sans avoir à retrouver la campagne d'origine.</value>
   </data>
 
   <data name="SuiviCampagnes_BoutonProchainContact" xml:space="preserve">
@@ -413,6 +416,45 @@
 
   <data name="RechercheClient_PageTitle" xml:space="preserve">
     <value>Recherche client</value>
+  </data>
+  <data name="RechercheClient_Placeholder" xml:space="preserve">
+    <value>Nom, numéro client ou téléphone</value>
+  </data>
+  <data name="RechercheClient_BoutonRechercher" xml:space="preserve">
+    <value>Rechercher</value>
+  </data>
+  <data name="RechercheClient_SousTitre" xml:space="preserve">
+    <value>Recherche par nom, NUMCLI ou téléphone, sur toutes les campagnes — y compris celles non visibles par défaut. Utile lorsqu'un client rappelle de lui-même.</value>
+  </data>
+  <data name="RechercheClient_Compteur" xml:space="preserve">
+    <value>{0} résultat(s)</value>
+  </data>
+  <data name="RechercheClient_Note" xml:space="preserve">
+    <value>« Date/heure de relance » n'est renseignée que si le client a un rappel en cours. « Traiter » n'est proposé que si la campagne est toujours active.</value>
+  </data>
+  <data name="RechercheClient_ColonneCampagne" xml:space="preserve">
+    <value>Nom de la campagne</value>
+  </data>
+  <data name="RechercheClient_ColonneRaisonSociale" xml:space="preserve">
+    <value>Raison sociale</value>
+  </data>
+  <data name="RechercheClient_ColonneTelephone" xml:space="preserve">
+    <value>Téléphone</value>
+  </data>
+  <data name="RechercheClient_ColonneDateRelance" xml:space="preserve">
+    <value>Date/heure de relance</value>
+  </data>
+  <data name="RechercheClient_ColonneDerniereAction" xml:space="preserve">
+    <value>Dernière action</value>
+  </data>
+  <data name="RechercheClient_Traiter" xml:space="preserve">
+    <value>Traiter</value>
+  </data>
+  <data name="RechercheClient_CampagneCloturee" xml:space="preserve">
+    <value>Campagne clôturée</value>
+  </data>
+  <data name="RechercheClient_AucunResultat" xml:space="preserve">
+    <value>Aucun résultat.</value>
   </data>
   <data name="TableauDeBord_PageTitle" xml:space="preserve">
     <value>Tableau de bord</value>

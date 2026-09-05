@@ -1,6 +1,85 @@
 @page "/recherche-client"
+@rendermode InteractiveServer
 @inherits LocalizedPage
 
 <PageTitle>@Localizer["RechercheClient_PageTitle"]</PageTitle>
 
 <h1>@Localizer["RechercheClient_PageTitle"]</h1>
+
+<p class="recherche-sous-titre">@Localizer["RechercheClient_SousTitre"]</p>
+
+<EditForm Model="this" OnValidSubmit="OnSearchAsync">
+    <div class="recherche-barre">
+        <div class="recherche-input-wrapper">
+            <span class="bi bi-search recherche-icone" aria-hidden="true"></span>
+            <input class="form-control recherche-input" type="search" placeholder="@Localizer["RechercheClient_Placeholder"]" @bind="TermeRecherche" @bind:event="oninput" />
+        </div>
+        <button type="submit" class="btn btn-sm btn-outline-secondary">@Localizer["RechercheClient_BoutonRechercher"]</button>
+    </div>
+</EditForm>
+
+@if (RechercheLancee)
+{
+    <p class="recherche-compteur">@string.Format(Localizer["RechercheClient_Compteur"], Resultats.Count)</p>
+
+    <div class="table-scroll">
+        <table class="table recherche-table">
+            <thead>
+                <tr>
+                    <th>@Localizer["RechercheClient_ColonneCampagne"]</th>
+                    <th>@Localizer["RechercheClient_ColonneRaisonSociale"]</th>
+                    <th>@Localizer["RechercheClient_ColonneTelephone"]</th>
+                    <th>@Localizer["RechercheClient_ColonneDateRelance"]</th>
+                    <th>@Localizer["RechercheClient_ColonneDerniereAction"]</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Resultats.Count == 0)
+                {
+                    <tr><td colspan="6"><em>@Localizer["RechercheClient_AucunResultat"]</em></td></tr>
+                }
+                else
+                {
+                    @foreach (var resultat in Resultats)
+                    {
+                        <tr @key="resultat.IdLCampagne">
+                            <td>@resultat.NomCampagne</td>
+                            <td>@resultat.RaisonSociale</td>
+                            <td>@resultat.Telephone</td>
+                            <td class="@(EstEnRetard(resultat) ? "en-retard" : null)">@DateRelanceAffichee(resultat)</td>
+                            <td>
+                                @if (resultat.DeroulementDerniereActionCode is not null)
+                                {
+                                    @Localizer[$"Deroulement_{resultat.DeroulementDerniereActionCode}"] <text> — </text> @resultat.LoginOperateurDerniereAction
+                                }
+                            </td>
+                            <td>
+                                @if (CampagneActive(resultat))
+                                {
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" @onclick="() => OnHandle(resultat)">
+                                        @Localizer["RechercheClient_Traiter"]
+                                    </button>
+                                }
+                                else
+                                {
+                                    <span class="recherche-cloturee">@Localizer["RechercheClient_CampagneCloturee"]</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <p class="recherche-note">
+        <span class="bi bi-info-circle" aria-hidden="true"></span>
+        @Localizer["RechercheClient_Note"]
+    </p>
+}
+
+@if (IdLCampagnePopupOuverte is not null)
+{
+    <PopupSaisieAction IdLCampagne="IdLCampagnePopupOuverte" Mode="ModePopup" OnClose="OnPopupClosedAsync" OnSave="OnPopupSavedAsync" />
+}

@@ -53,6 +53,11 @@
     </table>
 </div>
 
+<p class="rappels-note">
+    <span class="bi bi-info-circle" aria-hidden="true"></span>
+    @Localizer["RappelsDuJour_Note"]
+</p>
+
 @if (IdLCampagnePopupOuverte is not null)
 {
     <PopupSaisieAction IdLCampagne="IdLCampagnePopupOuverte" Mode="ModePopup" OnClose="OnPopupClosedAsync" OnSave="OnPopupSavedAsync" />
