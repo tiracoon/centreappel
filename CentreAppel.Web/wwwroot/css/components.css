@@ -1,0 +1,39 @@
+/* Classes partagées entre pages — chacune remplace des règles auparavant dupliquées à l'identique
+   dans plusieurs *.razor.css. Les mécaniques Bootstrap (btn, table, form-control) restent utilisées
+   directement dans le markup ; ce fichier ne couvre que nos patterns propres à l'application. */
+
+/* Titre principal d'écran (h1), ex. "Rappels du jour", "Recherche client". */
+.page-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+}
+
+/* Paragraphe d'introduction sous un .page-title. */
+.page-subtitle {
+    color: var(--color-secondary);
+}
+
+/* Libellé de section en majuscules, ex. "Mes campagnes en cours". */
+.section-label {
+    margin-top: 0;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-secondary);
+}
+
+/* Note d'aide sous un tableau (icône + texte atténué), ex. légende des colonnes. */
+.info-note {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: var(--spacing-md);
+    color: var(--color-secondary);
+    font-size: 0.85rem;
+}
+
+/* Conteneur de défilement horizontal pour un tableau plus large que son écran. */
+.data-table-scroll {
+    overflow-x: auto;
+}

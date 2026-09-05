@@ -6,8 +6,8 @@
 
 <div class="suivi-layout">
     <section class="zone-campagnes">
-        <h2 class="section-title">@Localizer["SuiviCampagnes_SectionCampagnesEnCours"]</h2>
-        <div class="table-scroll zone-scroll">
+        <h2 class="section-label">@Localizer["SuiviCampagnes_SectionCampagnesEnCours"]</h2>
+        <div class="data-table-scroll zone-scroll">
             <table class="table campagnes-table">
                 <thead>
                     <tr>
@@ -46,7 +46,7 @@
 
         @if (MessageProchainContact is not null)
         {
-            <span class="message-info">@MessageProchainContact</span>
+            <span class="text-primary">@MessageProchainContact</span>
         }
     </section>
 
@@ -57,7 +57,7 @@
             <p class="message-erreur">@MessageVerrou</p>
         }*@
 
-        <div class="table-scroll zone-scroll">
+        <div class="data-table-scroll zone-scroll">
             <table class="table lignes-table">
                 <thead>
                     <tr>

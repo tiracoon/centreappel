@@ -1,6 +1,67 @@
 @page "/tableau-de-bord"
+@rendermode InteractiveServer
 @inherits LocalizedPage
 
 <PageTitle>@Localizer["TableauDeBord_PageTitle"]</PageTitle>
 
-<h1>@Localizer["TableauDeBord_PageTitle"]</h1>
+<div class="tableau-carte">
+    <div class="tableau-entete">
+        <h1 class="page-title">@Localizer["TableauDeBord_PageTitle"]</h1>
+
+        <div class="tableau-selecteur">
+            <label for="tableau-campagne">@Localizer["TableauDeBord_LabelCampagne"]</label>
+            <select id="tableau-campagne" class="form-select" @onchange="OnCampagneChange">
+                @if (CampagnesDisponibles.Count == 0)
+                {
+                    <option value="">@Localizer["TableauDeBord_AucuneCampagne"]</option>
+                }
+                else
+                {
+                    @foreach (var campagne in CampagnesDisponibles)
+                    {
+                        <option value="@campagne.IdCampagne" selected="@(campagne.IdCampagne == IdCampagneSelectionnee)">@campagne.Nom</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+
+    <p class="tableau-label">@Localizer["TableauDeBord_Avancement"]</p>
+
+    <div class="tableau-progression">
+        <div class="progress" role="progressbar" aria-valuenow="@Donnees.PourcentageTraite" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar" style="width:@(Donnees.PourcentageTraite)%"></div>
+        </div>
+        <span class="tableau-progression-texte">
+            <strong>@Donnees.Traites</strong> @string.Format(Localizer["TableauDeBord_ProgressionTexte"], Donnees.NbLignes, Donnees.PourcentageTraite)
+        </span>
+    </div>
+
+    <div class="tableau-compteurs">
+        <div class="tableau-stat">
+            <p class="tableau-label">@Localizer["TableauDeBord_Traites"]</p>
+            <p class="tableau-valeur">@Donnees.Traites</p>
+        </div>
+        <div class="tableau-stat">
+            <p class="tableau-label">@Localizer["TableauDeBord_Restants"]</p>
+            <p class="tableau-valeur">@Donnees.Restants</p>
+        </div>
+        <div class="tableau-stat">
+            <p class="tableau-label">@Localizer["TableauDeBord_ARappeler"]</p>
+            <p class="tableau-valeur tableau-valeur-warning">@Donnees.ARappeler</p>
+        </div>
+        <div class="tableau-stat">
+            <p class="tableau-label">@Localizer["TableauDeBord_TauxArgumentation"]</p>
+            <p class="tableau-valeur">@Donnees.TauxArgumentation.ToString("0") %</p>
+        </div>
+        <div class="tableau-stat">
+            <p class="tableau-label">@Localizer["TableauDeBord_VentesValidees"]</p>
+            <p class="tableau-valeur tableau-valeur-success">@Donnees.VentesValidees</p>
+        </div>
+    </div>
+
+    <p class="info-note">
+        <span class="bi bi-info-circle" aria-hidden="true"></span>
+        @Localizer["TableauDeBord_Note"]
+    </p>
+</div>

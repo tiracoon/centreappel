@@ -5,6 +5,8 @@ namespace CentreAppel.Web.Application.Services;
 public interface ICampagneService
 {
     Task<List<CampagneEnCours>?> GetCampagnesEnCoursAsync(long idOperateur, CancellationToken cancellationToken);
+    Task<List<CampagneEnCours>> GetCampagnesAsync(long idOperateur, CancellationToken cancellationToken);
+    Task<TableauDeBordDonnees> GetStatistiquesCampagneAsync(long idCampagne, CancellationToken cancellationToken);
     Task<List<LigneCampagneEnCours>?> GetLigneCampagneEnCoursAsync(long idCampagne, CancellationToken cancellationToken);
     Task<List<CommentaireCampagne>> GetCommentairesCampagneAsync(long idCampagne, CancellationToken cancellationToken);
     Task<LigneCampagnePopup?> GetLigneCampagnePopupAsync(long idLCampagne, CancellationToken cancellationToken);

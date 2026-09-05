@@ -30,6 +30,78 @@ public class CampagneService(IDbContextFactory<ApplicationDbContext> dbContextFa
                 .ToListAsync(cancellationToken);
     }
 
+    // Alimente le sélecteur de campagne du Tableau de bord (§5.6) : toutes les campagnes visibles
+    // par l'opérateur (CampagnesOperateur), quel que soit leur statut — contrairement à
+    // GetCampagnesEnCoursAsync qui restreint aux campagnes Active pour Suivi des campagnes.
+    public async Task<List<CampagneEnCours>> GetCampagnesAsync(long idOperateur, CancellationToken cancellationToken)
+    {
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        return await context.Campagnes
+                .AsNoTracking()
+                .Where(c => context.CampagnesOperateur.Any(co => co.IdCampagne == c.IdCampagne && co.IdOperateur == idOperateur))
+                .OrderByDescending(c => c.DateCampagne)
+                .Select(c => new CampagneEnCours
+                {
+                    IdCampagne = c.IdCampagne,
+                    Nom = c.Nom,
+                    DateCampagne = c.DateCampagne,
+                    Description = c.Description,
+                    Statut = c.Statut,
+                    NbLignes = context.LignesCampagne.Count(l => l.IdCampagne == c.IdCampagne),
+                    NbATraiter = context.LignesCampagne.Count(l => l.IdCampagne == c.IdCampagne && !context.ActionsCampagne.Any(a => a.IdLCampagne == l.IdLCampagne)),
+                })
+                .ToListAsync(cancellationToken);
+    }
+
+    // Compteurs du Tableau de bord (§5.6) pour une campagne donnée. Traités/Restants/À rappeler
+    // se basent sur la dernière action de chaque ligne (comme GetLigneCampagneEnCoursAsync) ;
+    // Taux d'argumentation et Ventes validées ne portent que sur les lignes déjà traitées.
+    public async Task<TableauDeBordDonnees> GetStatistiquesCampagneAsync(long idCampagne, CancellationToken cancellationToken)
+    {
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+
+        var nbLignes = await context.LignesCampagne
+            .CountAsync(l => l.IdCampagne == idCampagne, cancellationToken);
+
+        var traites = await context.LignesCampagne
+            .CountAsync(l => l.IdCampagne == idCampagne && context.ActionsCampagne.Any(a => a.IdLCampagne == l.IdLCampagne), cancellationToken);
+
+        var aRappeler = await (
+            from ligne in context.LignesCampagne
+            join derniereAction in context.DernieresActions on ligne.IdLCampagne equals derniereAction.IdLCampagne
+            join deroulement in context.Deroulements on derniereAction.IdDeroulement equals deroulement.IdDeroulement
+            where ligne.IdCampagne == idCampagne && deroulement.Code == CodesDeroulement.ARappeler
+            select ligne.IdLCampagne
+        ).CountAsync(cancellationToken);
+
+        var contactArgumente = await (
+            from ligne in context.LignesCampagne
+            join derniereAction in context.DernieresActions on ligne.IdLCampagne equals derniereAction.IdLCampagne
+            join deroulement in context.Deroulements on derniereAction.IdDeroulement equals deroulement.IdDeroulement
+            where ligne.IdCampagne == idCampagne && deroulement.Code == CodesDeroulement.ContactArgumente
+            select ligne.IdLCampagne
+        ).CountAsync(cancellationToken);
+
+        var ventesValidees = await (
+            from ligne in context.LignesCampagne
+            join derniereAction in context.DernieresActions on ligne.IdLCampagne equals derniereAction.IdLCampagne
+            join interet in context.InteretsClient on derniereAction.IdInteret equals interet.IdInteret
+            where ligne.IdCampagne == idCampagne && interet.Code == CodesInteret.VenteValidee
+            select ligne.IdLCampagne
+        ).CountAsync(cancellationToken);
+
+        return new TableauDeBordDonnees
+        {
+            NbLignes = nbLignes,
+            Traites = traites,
+            Restants = nbLignes - traites,
+            ARappeler = aRappeler,
+            TauxArgumentation = traites == 0 ? 0 : Math.Round(contactArgumente * 100m / traites, 0),
+            VentesValidees = ventesValidees,
+        };
+    }
+
     public async Task<List<LigneCampagneEnCours>?> GetLigneCampagneEnCoursAsync(long idCampagne, CancellationToken cancellationToken)
     {
         await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);

@@ -4,11 +4,11 @@
 
 <PageTitle>@Localizer["RappelsDuJour_PageTitle"]</PageTitle>
 
-<h1>@Localizer["RappelsDuJour_PageTitle"]</h1>
+<h1 class="page-title">@Localizer["RappelsDuJour_PageTitle"]</h1>
 
-<p class="rappels-sous-titre">@string.Format(Localizer["RappelsDuJour_Compteur"], Rappels.Count) · @Localizer["RappelsDuJour_Portee"]</p>
+<p class="page-subtitle">@string.Format(Localizer["RappelsDuJour_Compteur"], Rappels.Count) · @Localizer["RappelsDuJour_Portee"]</p>
 
-<div class="table-scroll">
+<div class="data-table-scroll">
     <table class="table rappels-table">
         <thead>
             <tr>
@@ -33,7 +33,7 @@
                         <td>@rappel.NomCampagne</td>
                         <td>@rappel.RaisonSociale</td>
                         <td>@rappel.Telephone</td>
-                        <td class="@(EstEnRetard(rappel) ? "en-retard" : null)">
+                        <td class="@(EstEnRetard(rappel) ? "text-danger" : null)">
                             @DateRelanceAffichee(rappel)
                             @if (EstEnRetard(rappel))
                             {
@@ -53,7 +53,7 @@
     </table>
 </div>
 
-<p class="rappels-note">
+<p class="info-note">
     <span class="bi bi-info-circle" aria-hidden="true"></span>
     @Localizer["RappelsDuJour_Note"]
 </p>

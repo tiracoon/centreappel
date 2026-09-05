@@ -4,9 +4,9 @@
 
 <PageTitle>@Localizer["RechercheClient_PageTitle"]</PageTitle>
 
-<h1>@Localizer["RechercheClient_PageTitle"]</h1>
+<h1 class="page-title">@Localizer["RechercheClient_PageTitle"]</h1>
 
-<p class="recherche-sous-titre">@Localizer["RechercheClient_SousTitre"]</p>
+<p class="page-subtitle">@Localizer["RechercheClient_SousTitre"]</p>
 
 <EditForm Model="this" OnValidSubmit="OnSearchAsync">
     <div class="recherche-barre">
@@ -22,7 +22,7 @@
 {
     <p class="recherche-compteur">@string.Format(Localizer["RechercheClient_Compteur"], Resultats.Count)</p>
 
-    <div class="table-scroll">
+    <div class="data-table-scroll">
         <table class="table recherche-table">
             <thead>
                 <tr>
@@ -47,7 +47,7 @@
                             <td>@resultat.NomCampagne</td>
                             <td>@resultat.RaisonSociale</td>
                             <td>@resultat.Telephone</td>
-                            <td class="@(EstEnRetard(resultat) ? "en-retard" : null)">@DateRelanceAffichee(resultat)</td>
+                            <td class="@(EstEnRetard(resultat) ? "text-danger" : null)">@DateRelanceAffichee(resultat)</td>
                             <td>
                                 @if (resultat.DeroulementDerniereActionCode is not null)
                                 {
@@ -73,7 +73,7 @@
         </table>
     </div>
 
-    <p class="recherche-note">
+    <p class="info-note">
         <span class="bi bi-info-circle" aria-hidden="true"></span>
         @Localizer["RechercheClient_Note"]
     </p>

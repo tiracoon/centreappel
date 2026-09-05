@@ -7,32 +7,32 @@ html, body {
 }
 
 a, .btn-link {
-    color: #006bb7;
+    color: var(--color-link);
 }
 
 .btn-primary {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+    color: var(--color-background);
+    background-color: var(--color-action);
+    border-color: var(--color-action-border);
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+  box-shadow: 0 0 0 0.1rem var(--color-background), 0 0 0 0.25rem var(--color-focus-ring);
 }
 
 /* Boutons d'action "outline-secondary" actifs (Suivi des campagnes : Prochain contact/Relance/
-   Historique ; Rappels du jour : Traiter) — même teinte que le surlignage des campagnes
-   sélectionnées, pour se distinguer nettement des boutons désactivés (style Bootstrap par défaut,
-   trop proche visuellement de l'état actif en outline-secondary). Global (pas dans un .razor.css
-   scopé) pour rester cohérent entre les deux pages. */
+   Historique ; Rappels du jour : Traiter ; Recherche client : Traiter/Rechercher) — même teinte que
+   le surlignage des lignes sélectionnées, pour se distinguer nettement des boutons désactivés (style
+   Bootstrap par défaut, trop proche visuellement de l'état actif en outline-secondary). Global (pas
+   dans un .razor.css scopé) pour rester cohérent entre toutes les pages. */
 .btn-outline-secondary:not(:disabled) {
-    background-color: rgba(13, 110, 253, 0.08);
-    border-color: #0d6efd;
-    color: #0a58ca;
+    background-color: var(--color-primary-soft);
+    border-color: var(--color-primary);
+    color: var(--color-primary-text);
 }
 
     .btn-outline-secondary:not(:disabled):hover {
-        background-color: rgba(13, 110, 253, 0.18);
+        background-color: var(--color-primary-soft-hover);
     }
 
 .content {

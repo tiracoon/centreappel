@@ -459,6 +459,36 @@
   <data name="TableauDeBord_PageTitle" xml:space="preserve">
     <value>Tableau de bord</value>
   </data>
+  <data name="TableauDeBord_LabelCampagne" xml:space="preserve">
+    <value>Campagne</value>
+  </data>
+  <data name="TableauDeBord_AucuneCampagne" xml:space="preserve">
+    <value>Aucune campagne</value>
+  </data>
+  <data name="TableauDeBord_Avancement" xml:space="preserve">
+    <value>Avancement</value>
+  </data>
+  <data name="TableauDeBord_ProgressionTexte" xml:space="preserve">
+    <value>/ {0} traités · {1} %</value>
+  </data>
+  <data name="TableauDeBord_Traites" xml:space="preserve">
+    <value>Traités</value>
+  </data>
+  <data name="TableauDeBord_Restants" xml:space="preserve">
+    <value>Restants</value>
+  </data>
+  <data name="TableauDeBord_ARappeler" xml:space="preserve">
+    <value>À rappeler</value>
+  </data>
+  <data name="TableauDeBord_TauxArgumentation" xml:space="preserve">
+    <value>Taux d'argumentation</value>
+  </data>
+  <data name="TableauDeBord_VentesValidees" xml:space="preserve">
+    <value>Ventes validées</value>
+  </data>
+  <data name="TableauDeBord_Note" xml:space="preserve">
+    <value>Vue de synthèse. Le suivi détaillé des campagnes dans le temps est assuré par un rapport Power BI dédié.</value>
+  </data>
   <data name="Administration_PageTitle" xml:space="preserve">
     <value>Administration</value>
   </data>

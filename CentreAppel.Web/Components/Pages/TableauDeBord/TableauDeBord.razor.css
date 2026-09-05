@@ -1,0 +1,71 @@
+.tableau-carte {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    max-width: 960px;
+}
+
+.tableau-entete {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.tableau-selecteur {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+    .tableau-selecteur select {
+        width: auto;
+    }
+
+.tableau-label {
+    color: var(--color-secondary);
+    font-size: 0.85rem;
+    margin-bottom: var(--spacing-xs);
+}
+
+.tableau-progression {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+    .tableau-progression .progress {
+        flex: 1;
+    }
+
+.tableau-progression-texte {
+    white-space: nowrap;
+    color: var(--color-secondary);
+}
+
+.tableau-compteurs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-lg);
+}
+
+.tableau-stat {
+    min-width: 8rem;
+}
+
+.tableau-valeur {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.tableau-valeur-warning {
+    color: var(--color-warning);
+}
+
+.tableau-valeur-success {
+    color: var(--color-success);
+}

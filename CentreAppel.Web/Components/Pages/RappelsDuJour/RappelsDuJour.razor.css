@@ -1,33 +1,3 @@
-h1 {
-    font-size: 1.75rem;
-    font-weight: 600;
-}
-
-.rappels-sous-titre {
-    color: #6c757d;
-}
-
-.rappels-note {
-    color: #6c757d;
-    font-size: 0.85rem;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    margin-top: 1rem;
-}
-
-.table-scroll {
-    overflow-x: auto;
-}
-
 .rappels-table {
     white-space: nowrap;
-}
-
-.en-retard {
-    color: #dc3545;
-}
-
-.message-erreur {
-    color: #dc3545;
 }
